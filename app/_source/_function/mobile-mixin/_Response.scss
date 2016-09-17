@@ -1,0 +1,33 @@
+$Response:false !default;
+$mediaArrays:(320 360 375 400 480 540 640 720) !default;
+@if $Response==true {
+    $htmlSize: null;
+    @if length($mediaArrays)==1 and type-of($mediaArrays) !=string {
+        $htmlSize: 3 * nth($mediaArrays, 1) / 80;
+        @media only screen and (min-width: #{nth($mediaArrays, 1)}px) {
+            html {
+                font-size: #{$htmlSize}px;
+            }
+        }
+    }
+    @if length($mediaArrays) > 1 {
+        @for $i from 1 through length($mediaArrays) {
+            $htmlSize: 3 * nth($mediaArrays, $i) / 80;
+            $media: null;
+            @if $i==1 {
+                $media: "only screen and (max-width: #{nth($mediaArrays, $i + 1) - 1}px)";
+            }
+            @else if $i==length($mediaArrays) {
+                $media: "only screen and (min-width: #{nth($mediaArrays, $i)}px)";
+            }
+            @else {
+                $media: "only screen and (min-width: #{nth($mediaArrays, $i)}px) and (max-width: #{nth($mediaArrays, $i + 1) - 1}px)";
+            }
+            @media #{$media} {
+                html {
+                    font-size: #{$htmlSize}px;
+                }
+            }
+        }
+    }
+}

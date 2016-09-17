@@ -1,0 +1,10 @@
+// 说明此文件引入了所有moblie的mixin
+// 其中reset,Response模块可以通过全局变量关闭和开启
+// 例如:
+//   $reset:false;
+//   $Response:false;
+// 其他模块默认全部引入，没有开关功能
+@import "mobile-mixin/reset";
+@import "mobile-mixin/rem-calc";
+@import "mobile-mixin/Response";
+@import "mobile-mixin/rem-sprites";
