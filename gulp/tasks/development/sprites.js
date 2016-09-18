@@ -12,8 +12,8 @@ const config = require('../../config' + project).sprites;
  * Generate sprite and css file from PNGs
  */
 gulp.task('sprites', () => {
-
-    var spriteData = gulp.src(config.src)
+    const imgStreams = {};
+    imgStreams['spriteData'] = gulp.src(config.src)
         .pipe(spritesmith({
             cssName: '_sprites.scss',
             cssFormat: 'scss',
@@ -32,12 +32,12 @@ gulp.task('sprites', () => {
             imgPath: '../images/cur-sprite.png'
         }));
 
-    var imgStream = spriteData.img
+    imgStreams['spriteData'].img
         .pipe(gulp.dest(config.dest.image));
 
-    var cssStream = spriteData.css
+    imgStreams['spriteData'].css
         .pipe(gulp.dest(config.dest.css));
-    var spriteData_1 = gulp.src('app/images/cur1/*.png')
+    imgStreams['spriteData_1'] = gulp.src('app/images/cur1/*.png')
         .pipe(spritesmith({
             cssName: '_sprites1.scss',
             cssFormat: 'scss',
@@ -56,12 +56,12 @@ gulp.task('sprites', () => {
             imgPath: '../images/cur1-sprite.png'
         }));
 
-    var imgStream_1 = spriteData_1.img
+    imgStreams['spriteData_1'].img
         .pipe(gulp.dest(config.dest.image));
 
-    var cssStream_1 = spriteData_1.css
+    imgStreams['spriteData_1'].css
         .pipe(gulp.dest(config.dest.css));
-    return merge([imgStream, cssStream]);
+    // return merge([imgStream, cssStream]);
 });
 
 
