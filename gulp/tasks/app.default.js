@@ -37,7 +37,7 @@ gulp.task('watch',()=>{{
         console.log(111);
     });
 
-    gulp.watch(config.images, ['imagesmin'])
+    gulp.watch(config.images, ['imagemin'])
     gulp.watch(config.pug, ['pug'])
     gulp.watch(config.sass, ['sass'])
     gulp.watch(config.scripts, ['scripts'])

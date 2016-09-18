@@ -1,0 +1,162 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+$lv2-name: 'lv2';
+$lv2-x: 0px;
+$lv2-y: 0px;
+$lv2-offset-x: 0px;
+$lv2-offset-y: 0px;
+$lv2-width: 76px;
+$lv2-height: 88px;
+$lv2-total-width: 304px;
+$lv2-total-height: 176px;
+$lv2-image: '../images/cur-sprite.png';
+$lv2: (0px, 0px, 0px, 0px, 76px, 88px, 304px, 176px, '../images/cur-sprite.png', 'lv2', );
+$lv3-name: 'lv3';
+$lv3-x: 76px;
+$lv3-y: 0px;
+$lv3-offset-x: -76px;
+$lv3-offset-y: 0px;
+$lv3-width: 76px;
+$lv3-height: 88px;
+$lv3-total-width: 304px;
+$lv3-total-height: 176px;
+$lv3-image: '../images/cur-sprite.png';
+$lv3: (76px, 0px, -76px, 0px, 76px, 88px, 304px, 176px, '../images/cur-sprite.png', 'lv3', );
+$lv4-name: 'lv4';
+$lv4-x: 152px;
+$lv4-y: 0px;
+$lv4-offset-x: -152px;
+$lv4-offset-y: 0px;
+$lv4-width: 76px;
+$lv4-height: 88px;
+$lv4-total-width: 304px;
+$lv4-total-height: 176px;
+$lv4-image: '../images/cur-sprite.png';
+$lv4: (152px, 0px, -152px, 0px, 76px, 88px, 304px, 176px, '../images/cur-sprite.png', 'lv4', );
+$lv5-name: 'lv5';
+$lv5-x: 0px;
+$lv5-y: 88px;
+$lv5-offset-x: 0px;
+$lv5-offset-y: -88px;
+$lv5-width: 76px;
+$lv5-height: 88px;
+$lv5-total-width: 304px;
+$lv5-total-height: 176px;
+$lv5-image: '../images/cur-sprite.png';
+$lv5: (0px, 88px, 0px, -88px, 76px, 88px, 304px, 176px, '../images/cur-sprite.png', 'lv5', );
+$lv6-name: 'lv6';
+$lv6-x: 76px;
+$lv6-y: 88px;
+$lv6-offset-x: -76px;
+$lv6-offset-y: -88px;
+$lv6-width: 76px;
+$lv6-height: 88px;
+$lv6-total-width: 304px;
+$lv6-total-height: 176px;
+$lv6-image: '../images/cur-sprite.png';
+$lv6: (76px, 88px, -76px, -88px, 76px, 88px, 304px, 176px, '../images/cur-sprite.png', 'lv6', );
+$lv7-hover-name: 'lv7-hover';
+$lv7-hover-x: 152px;
+$lv7-hover-y: 88px;
+$lv7-hover-offset-x: -152px;
+$lv7-hover-offset-y: -88px;
+$lv7-hover-width: 76px;
+$lv7-hover-height: 88px;
+$lv7-hover-total-width: 304px;
+$lv7-hover-total-height: 176px;
+$lv7-hover-image: '../images/cur-sprite.png';
+$lv7-hover: (152px, 88px, -152px, -88px, 76px, 88px, 304px, 176px, '../images/cur-sprite.png', 'lv7-hover', );
+$lv7-name: 'lv7';
+$lv7-x: 228px;
+$lv7-y: 0px;
+$lv7-offset-x: -228px;
+$lv7-offset-y: 0px;
+$lv7-width: 76px;
+$lv7-height: 88px;
+$lv7-total-width: 304px;
+$lv7-total-height: 176px;
+$lv7-image: '../images/cur-sprite.png';
+$lv7: (228px, 0px, -228px, 0px, 76px, 88px, 304px, 176px, '../images/cur-sprite.png', 'lv7', );
+$spritesheet-width: 304px;
+$spritesheet-height: 176px;
+$spritesheet-image: '../images/cur-sprite.png';
+$spritesheet-sprites: ($lv2, $lv3, $lv4, $lv5, $lv6, $lv7-hover, $lv7, );
+$spritesheet: (304px, 176px, '../images/cur-sprite.png', $spritesheet-sprites, );
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
