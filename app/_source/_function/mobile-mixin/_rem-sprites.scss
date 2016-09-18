@@ -5,7 +5,7 @@
 //  * @param  {图片名称} $item:null 指定图片的名称
 //  * @param  {Number} $base-value: $rem-base     合图使用的计算基数，可以根据字体大小也可以根据设计稿尺寸设定
 //  * @return {Number}            转换后值
- 
+
 @function calc-width($map, $item:null, $base-value: $rem-base) {
     @if $item {
         @return rem-calc(sprite-width($map, $item), $base-value);
@@ -21,7 +21,7 @@
 //  * @param  {图片名称} $item:null 指定图片的名称
 //  * @param  {Number} $base-value: $rem-base     合图使用的计算基数，可以根据字体大小也可以根据设计稿尺寸设定
 //  * @return {Number}            转换后值
- 
+
 @function calc-height($map, $item:null, $base-value: $rem-base) {
     @if $item {
         @return rem-calc(sprite-height($map, $item), $base-value);
@@ -41,8 +41,8 @@ $lists:() !default;
 //  * @param  {Boolean} $active:false       指定是否添加点击状态
 //  * @param  {Number} $rem-base:$rem-base 合图使用的计算基数，可以根据字体大小也可以根据设计稿尺寸设定
 //  * @param  {Boolean} $line-image:false   指定图片引用是否采用base,默认为false
-//  * @return {无}                 
- 
+//  * @return {无}
+
 @mixin _rem-sprite($map, $name, $dimensions:true, $active:false, $rem-base:$rem-base,$line-image:false) {
     $dir-name: sprite-map-name($map);
     $my-args: ($dir-name);
@@ -130,8 +130,8 @@ $lists:() !default;
 //  * @param  {String} $separator:$default-sprite-separator class中间的连接符
 //  * @param  {Number} $rem-base:$rem-base                  合图使用的计算基数，可以根据字体大小也可以根据设计稿尺寸设定
 //  * @param  {Boolean} $line-image:false                    指定图片引用是否采用base,默认为false
-//  * @return {无}                                      
- 
+//  * @return {无}
+
 @mixin _rem-sprites($map, $dimensions:true, $active:true, $pre-name:null, $separator:$default-sprite-separator, $rem-base:$rem-base, $line-image:false) {
     $names: sprite-names($map);
     $dir-name: $pre-name or sprite-map-name($map);
@@ -151,8 +151,8 @@ $lists:() !default;
 //  * @param  {Number} $rem-base:$rem-base 合图使用的计算基数，可以根据字体大小也可以根据设计稿尺寸设定
 //  * @param  {Number} $spacing:           0px           合成图片之间的间隔，默认为“0px”
 //  * @param  {Boolean} $line-image:false   指定图片引用是否采用base,默认为false
-//  * @return {无}                     
- 
+//  * @return {无}
+
 @mixin rem-sprite($dir-name:null, $name:null, $dimensions:true, $active:true, $rem-base:$rem-base, $spacing: 0px, $line-image:false) {
     $map: null;
     @if $dir-name !=null and type-of($dir-name)==string {
@@ -179,8 +179,8 @@ $lists:() !default;
 //  * @param  {Number} $rem-base:$rem-base                  合图使用的计算基数，可以根据字体大小也可以根据设计稿尺寸设定
 //  * @param  {Number} $spacing:                            0px           合成图片之间的间隔，默认为“0px”
 //  * @param  {Boolean} $line-image:false                    指定图片引用是否采用base,默认为false
-//  * @return {无}                                     
- 
+//  * @return {无}
+
 @mixin rem-sprites($dir-name:null, $dimensions:true, $active:true, $pre-name:null, $separator:$default-sprite-separator, $rem-base:$rem-base, $spacing: 0px, $line-image:false) {
     $map: null;
     @if $dir-name !=null and type-of($dir-name)==string {

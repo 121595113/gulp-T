@@ -5,6 +5,6 @@ const config = require('../../config'+project).uglify;
 
 gulp.task('scripts', () => {
     return gulp.src(config.src)
-        .pipe(uglify(config.options))
+        .pipe(uglify())
         .pipe(gulp.dest(config.dest));
 });

@@ -4,7 +4,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import compass from 'gulp-compass';
 import autoprefixer from 'gulp-autoprefixer';
 const project = require('../../lib/project')();
-const config = require('../../config' + project).compass;
+const config = require('../../config' + project).compass.development;
 
 
 gulp.task('compass', () => {
@@ -16,5 +16,5 @@ gulp.task('compass', () => {
         .pipe(autoprefixer(config.autoprefixer))
         .on('error', () => {})
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(config.dest))
+        .pipe(gulp.dest(config.dest));
 });

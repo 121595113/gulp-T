@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "init": "npm install",
-    "app":"gulp app:watch --app"
+    "app": "gulp app:watch --app"
   },
   "keywords": [
     "gulp"
@@ -26,6 +26,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-pug": "^3.0.3",
+    "gulp-sass": "^2.3.2",
     "gulp-sequence": "^0.4.6",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.4",

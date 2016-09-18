@@ -1,35 +1,38 @@
-@import "compass","mobile-mixin";
+@import "../_function/mobile-mixin";
 
-body{
-	display: flex;
-	// @include display-flex(flex);
-	// background: yellow;
-	background-image:linear-gradient(to top,orange,green);
-	// @include background-image(radial-gradient(45px 45px, cyan 10px, dodgerblue 30px));
-	color: yellow;
-	width: rem-calc(90);
-	_zoom: 1;
-}
+// body{
+// 	display: flex;
+// 	// @include display-flex(flex);
+// 	// background: yellow;
+// 	background-image:linear-gradient(to top,orange,green);
+// 	// @include background-image(radial-gradient(45px 45px, cyan 10px, dodgerblue 30px));
+// 	color: yellow;
+// 	width: rem-calc(90);
+// 	_zoom: 1;
+// }
 
 
 
-.head{
-	font-size: rem-calc(80);
-}
+// .head{
+// 	font-size: rem-calc(80);
+// }
 
-@include rem-sprites("cur/*.png");
+// @include rem-sprites("cur/*.png");
+
+// body{
+// 	background: green;
+// 	opacity: 0.5;
+// }
+
+// div{
+// 	// @include rem-sprite("cur/*.png",lv1);
+// }
+
+
 
 body{
 	background: yellow;
-	opacity: 0.5;
+	width: rem-calc(100);
 }
-
-div{
-	// @include rem-sprite("cur/*.png",lv1);
-}
-
-
-
-
 
 

@@ -1,11 +1,11 @@
 const src = 'app';
-const build = 'dist';
+const dest = 'dist';
 const development = 'dist/development';
 const production = 'dist/production';
-const srcAssets = 'app/_assets';
-const sass = 'app/_source';
+// const srcAssets = 'app/_assets';
+const sass = `${src}/_source`;
 const developmentAssets = 'dist';
-const productionAssets = 'dist/production/assets';
+// const productionAssets = 'dist/production/assets';
 
 module.exports = {
     browsersync: {
@@ -13,13 +13,13 @@ module.exports = {
             notify: false,
             port: 9000,
             server: {
-                baseDir: [build],
+                baseDir: [dest],
                 index: 'index.html',
                 routes: {
                     // '/bower_components': 'bower_components'
                 }
             },
-            browser: ["google chrome", "chrome"],
+            browser: "chrome",
             open: 'ui' // local, external, ui, ui-external, tunnel or false
         },
         production: {
@@ -33,78 +33,80 @@ module.exports = {
         src: [developmentAssets]
     },
     pug:{
-		src:['app/_source/pug/**/*.pug', '!app/_source/pug/components/*', '!app/_source/pug/layout/*'],
-		dest:'dist',
-		data:'app/_source/pug/data/'
+        src:[`${src}/_source/pug/**/*.pug`, `!${src}/_source/pug/components/*`, `!${src}/_source/pug/layout/*`],
+        dest:dest,
+        data:`${src}/_source/pug/data/`
     },
     compass: {
-        src: 'app/_source/sass/**/*.scss',
-        dest: 'dist/css',
-        options: {
-        	import_path: ['app/_source/_function'],
-            sass: 'app/_source/sass',
-            css: 'dist/css',
-            image: 'dist/images',
-            sourcemap: true
+        development:{
+            src: `${src}/_source/sass/**/*.scss`,
+            dest: `${dest}/css`,
+            options: {
+                import_path: [`${src}/_source/_function`],
+                sass: `${src}/_source/sass`,
+                css: `${dest}/css`,
+                image: `${dest}/images`,
+                sourcemap: true
+            },
+            autoprefixer: {
+                browsers: [
+                    'last 2 versions',
+                    'safari 5',
+                    'ie 8',
+                    'ie 9',
+                    'opera 12.1',
+                    'ios 6',
+                    'android 4'
+                ],
+                cascade: true
+            }
         },
-        autoprefixer: {
-            browsers: [
-                'last 2 versions',
-                'safari 5',
-                'ie 8',
-                'ie 9',
-                'opera 12.1',
-                'ios 6',
-                'android 4'
-            ],
-            cascade: true
-        }
+        production:{},
     },
     imagemin: {
-        src: 'app/images/**/*',
-        dest: 'dist/images/',
-        srcico:'app/*.{ico,png}',
-        destico:'dist/'
+        src: `${src}/images/**/*`,
+        dest: `${dest}/images/`,
+        srcico:`${src}/*.{ico,png}`,
+        destico:`${dest}/`
     },
     uglify:{
-    	src:'app/js/**/*.js',
-    	dest:'dist/js/',
-    	options:{}
+        src:`${src}/js/**/*.js`,
+        dest:`${dest}/js/`
     },
     watch: {
-    	changes:[
-	    	'dist/**/*.html',
-	    	'dist/images/**/*',
-	    	'dist/css/**/*',
-	    	'dist/js/**/*'
-    	],
-        sass: sass + '/sass/**/*.scss',
-        pug:'app/_source/pug/**/*.pug',
-        images:'app/images/**/*.{jpg,jpeg,png,gif}',
-        scripts: 'app/js/**/*.js'
+        changes:[
+            `${dest}/**/*.html`,
+            `${dest}/images/**/*`,
+            `${dest}/css/**/*.css`,
+            `${dest}/js/**/*`
+        ],
+        sass: `${sass}/sass/**/*.scss`,
+        pug:`${src}/_source/pug/**/*.pug`,
+        images:`${src}/images/**/*.{jpg,jpeg,png,gif}`,
+        scripts: `${src}/js/**/*.js`
     },
-    sprites: {
-        src: srcAssets + '/images/sprites/icon/*.png',
-        dest: {
-            css: srcAssets + '/styles/partials/base/',
-            image: srcAssets + '/images/sprites/'
-        },
-        options: {
-            cssName: '_sprites.scss',
-            cssFormat: 'css',
-            cssOpts: {
-                cssClass: function(item) {
-                    // If this is a hover sprite, name it as a hover one (e.g. 'home-hover' -> 'home:hover')
-                    if (item.name.indexOf('-hover') !== -1) {
-                        return '.icon-' + item.name.replace('-hover', ':hover');
-                        // Otherwise, use the name as the selector (e.g. 'home' -> 'home')
-                    } else {
-                        return '.icon-' + item.name;
-                    }
-                }
-            },
-            imgName: 'icon-sprite.png',
-            imgPath: '/assets/images/sprites/icon-sprite.png'
-        }
-    }
+    // sprites: {
+    //     src: srcAssets + '/images/sprites/icon/*.png',
+    //     dest: {
+    //         css: srcAssets + '/styles/partials/base/',
+    //         image: srcAssets + '/images/sprites/'
+    //     },
+    //     options: {
+    //         cssName: '_sprites.scss',
+    //         cssFormat: 'css',
+    //         cssOpts: {
+    //             cssClass: function(item) {
+    //                 // If this is a hover sprite, name it as a hover one (e.g. 'home-hover' -> 'home:hover')
+    //                 if (item.name.indexOf('-hover') !== -1) {
+    //                     return '.icon-' + item.name.replace('-hover', ':hover');
+    //                     // Otherwise, use the name as the selector (e.g. 'home' -> 'home')
+    //                 } else {
+    //                     return '.icon-' + item.name;
+    //                 }
+    //             }
+    //         },
+    //         imgName: 'icon-sprite.png',
+    //         imgPath: '/assets/images/sprites/icon-sprite.png'
+    //     }
+    // }
 };
