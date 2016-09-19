@@ -35,7 +35,7 @@ body{
 	display: flex;
 	background: yellow;
 	width: rem-calc(100);
-	@include sprite($cur-lv2);
+	@include rem-sprite($cur-lv3);
 }
 
 h1{
