@@ -32,12 +32,14 @@
 
 
 body{
-	background: red;
+	display: flex;
+	background: yellow;
 	width: rem-calc(100);
 	@include sprite($cur-lv2);
 }
-div{
-	// @include sprite($lv-2);
+
+h1{
+	color: red
 }
-@include sprites($cur-sprites);
+// @include sprites($cur-sprites);
 
