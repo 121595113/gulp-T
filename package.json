@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "init": "npm install",
-    "app": "gulp app:watch --app"
+    "app": "gulp app --app"
   },
   "keywords": [
     "gulp"

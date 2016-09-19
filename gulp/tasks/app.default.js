@@ -6,12 +6,11 @@ const project = require('../lib/project')();
 const config = require('../config' + project).watch;
 const reload = browserSync.reload;
 
-
 /**
  * Start browsersync task and then watch files for changes
  */
 
-gulp.task('app:watch', (callback) => {
+gulp.task('app', (callback) => {
     gulpSequence(
         'delete',
         'imagemin', [
