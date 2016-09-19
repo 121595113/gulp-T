@@ -1,6 +1,6 @@
 @import "../_function/mobile-mixin";
 @import "./sprites/sprites";
-@import "./sprites/sprites1";
+// @import "./sprites/sprites1";
 // body{
 // 	display: flex;
 // 	// @include display-flex(flex);
@@ -34,10 +34,10 @@
 body{
 	background: yellow;
 	width: rem-calc(100);
-	@include sprite($lv2);
+	@include sprite($cur-lv2);
 }
 div{
-	@include sprite($lv-2);
+	// @include sprite($lv-2);
 }
-// @include sprites($spritesheet-sprites);
+@include sprites($cur-sprites);
 

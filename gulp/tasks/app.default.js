@@ -22,20 +22,10 @@ gulp.task('app:watch', (callback) => {
         'browsersync',
         'watch'
     )(callback);
-    // gulp.watch(config.changes).on('change', reload).on('error', () => {
-    //     console.log(111);
-    // });
-
-    // gulp.watch(config.images, ['imagesmin'])
-    // gulp.watch(config.pug, ['pug'])
-    // gulp.watch(config.sass, ['compass'])
-    // gulp.watch(config.scripts, ['scripts'])
 });
 
 gulp.task('watch',()=>{{
-    gulp.watch(config.changes).on('change', reload).on('error', () => {
-        console.log(111);
-    });
+    gulp.watch(config.changes).on('change', reload).on('error', () => {});
 
     gulp.watch(config.images, ['imagemin'])
     gulp.watch(config.pug, ['pug'])

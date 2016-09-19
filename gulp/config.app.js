@@ -19,7 +19,7 @@ module.exports = {
                     // '/bower_components': 'bower_components'
                 }
             },
-            browser: ["chrome","google chrome"],
+            browser: ["chrome"/*,"google chrome"*/],
             open: 'ui' // local, external, ui, ui-external, tunnel or false
         },
         production: {
@@ -90,23 +90,6 @@ module.exports = {
         dest: {
             css: srcAssets + '/_source/sass/sprites/',
             image: srcAssets + '/images/'
-        },
-        options: {
-            cssName: '_sprites.scss',
-            cssFormat: 'css',
-            cssOpts: {
-                cssClass: function(item) {
-                    // If this is a hover sprite, name it as a hover one (e.g. 'home-hover' -> 'home:hover')
-                    if (item.name.indexOf('-hover') !== -1) {
-                        return '.icon-' + item.name.replace('-hover', ':hover');
-                        // Otherwise, use the name as the selector (e.g. 'home' -> 'home')
-                    } else {
-                        return '.icon-' + item.name;
-                    }
-                }
-            },
-            imgName: 'icon-sprite.png',
-            imgPath: '/assets/images/sprites/icon-sprite.png'
         }
     }
 };
