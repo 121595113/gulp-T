@@ -70,7 +70,7 @@ module.exports = {
     sprites: {
         src: src + '/images',
         dest: {
-            css: src + '/_source/sass/sprites/',
+            css: src + '/sass/sprites/',
             image: src + '/images/'
         }
     }
