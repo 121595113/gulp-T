@@ -12,7 +12,7 @@ git clone https://github.com/121595113/gulp-T.git
 npm install
 ```
 ### 二、开发模式
-*如无特殊说明以下都已app项目为例*
+*如无特殊说明以下都以app项目为例*
 ```
 gulp app --app // 其中app为项目读取配置文件所需参数名，配置文件路径'gulp/config.app.js'
 ```
