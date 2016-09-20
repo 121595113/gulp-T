@@ -9,7 +9,7 @@ const handleErrors = require('../../lib/handleErrors');
 import fs from 'fs';
 const project = require('../../lib/project')();
 let config;
-if (fs.existsSync('./gulp/config' + project+'.js')) {
+if (fs.existsSync('./gulp/config' + project + '.js')) {
     config = require('../../config' + project).sprites;
 }
 
@@ -24,6 +24,7 @@ gulp.task('sprites', () => {
     if (sprite_arg) {
         sprite_arg.forEach(function(item, index) {
             imgStreams[item] = gulp.src(`${config.src}/${item}/*.png`)
+                .pipe(plumber())
                 .pipe(spritesmith({
                     cssName: `_${item}.scss`,
                     cssFormat: 'scss',

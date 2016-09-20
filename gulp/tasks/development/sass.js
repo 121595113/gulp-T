@@ -10,12 +10,13 @@ const handleErrors = require('../../lib/handleErrors');
 import fs from 'fs';
 const project = require('../../lib/project')();
 let config;
-if (fs.existsSync('./gulp/config' + project+'.js')) {
+if (fs.existsSync('./gulp/config' + project + '.js')) {
     config = require('../../config' + project).sass;
 }
 
 gulp.task('sass', () => {
     return gulp.src(config.src)
+        .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(sass(config.options).on('error', handleErrors))
         .pipe(autoprefixer(config.autoprefixer))
@@ -24,12 +25,24 @@ gulp.task('sass', () => {
 });
 
 gulp.task('sass:build', () => {
-    return gulp.src(config.src)
-        .pipe(sass().on('error', handleErrors))
-        .pipe(autoprefixer(config.autoprefixer))
-        .pipe(cleancss({
-            compatibility: 'ie8'
-        }))
-        .pipe(base64(config.base64))
-        .pipe(gulp.dest(config.dest))
+    if (!!config.base64) {
+        return gulp.src(config.src)
+            .pipe(plumber())
+            .pipe(sass().on('error', handleErrors))
+            .pipe(autoprefixer(config.autoprefixer))
+            .pipe(cleancss({
+                compatibility: 'ie8'
+            }))
+            .pipe(base64(config.base64))
+            .pipe(gulp.dest(config.dest))
+    } else {
+        return gulp.src(config.src)
+            .pipe(plumber())
+            .pipe(sass().on('error', handleErrors))
+            .pipe(autoprefixer(config.autoprefixer))
+            .pipe(cleancss({
+                compatibility: 'ie8'
+            }))
+            .pipe(gulp.dest(config.dest))
+    }
 });

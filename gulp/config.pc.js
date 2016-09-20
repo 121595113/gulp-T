@@ -43,12 +43,6 @@ module.exports = {
                 'ios 6',
                 'android 4'
             ]
-        },
-        base64:{
-            baseDir: `${dest}/css`,
-            extensions: ['svg', 'png', /\.jpg#datauri$/i],
-            exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
-            maxImageSize: 8 * 1024
         }
     },
     imagemin: {
