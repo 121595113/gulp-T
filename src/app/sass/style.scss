@@ -21,9 +21,9 @@
 
 body{
 	display: flex;
-	background: red;
+	background: yellow;
 	width: rem-calc(100);
-	@include rem-sprite($aqi-icon-lv3,16);
+	@include rem-sprite($cur1-lv-2,16);
 }
 
 h1{
