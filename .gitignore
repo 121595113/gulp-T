@@ -1,6 +1,6 @@
 
 .DS_Store
-
+build
 *.scssc
 *.map
 node_modules
