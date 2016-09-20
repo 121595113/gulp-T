@@ -3,9 +3,14 @@ import plumber from 'gulp-plumber';
 import data from 'gulp-data';
 import pug from 'gulp-pug';
 import path from 'path';
+
 import fs from 'fs';
 const project = require('../../lib/project')();
-const config = require('../../config'+project).pug;
+let config;
+if (fs.existsSync('./gulp/config' + project+'.js')) {
+    config = require('../../config' + project).pug;
+}
+
 gulp.task('pug', () => {
     return gulp.src(config.src)
         .pipe(plumber())

@@ -1,17 +1,12 @@
-const src = 'app';
-const dest = 'dist';
-const development = 'dist/development';
-const production = 'dist/production';
-const srcAssets = 'app';
-const sass = `${src}/_source`;
-const developmentAssets = 'dist';
-// const productionAssets = 'dist/production/assets';
+const src = 'src/app';
+const dest = 'build/app';
+const sass = `${src}`;
 
 module.exports = {
     browsersync: {
         development: {
             notify: false,
-            port: 9000,
+            port: 8000,
             server: {
                 baseDir: [dest],
                 index: 'index.html',
@@ -19,49 +14,43 @@ module.exports = {
                     // '/bower_components': 'bower_components'
                 }
             },
-            browser: [/*"chrome",*/"google chrome"],
-            open: 'ui' // local, external, ui, ui-external, tunnel or false
-        },
-        production: {
-            server: {
-                baseDir: [production]
-            },
-            port: 9998
+            browser: ["chrome"/*,"google chrome"*/],
+            open: 'external' // local, external, ui, ui-external, tunnel or false
         }
     },
     delete: {
-        src: [developmentAssets]
+        src: [dest]
     },
     pug:{
-		src:[`${src}/_source/pug/**/*.pug`, `!${src}/_source/pug/components/*`, `!${src}/_source/pug/layout/*`],
+		src:[`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
 		dest:dest,
-		data:`${src}/_source/pug/data/`
+		data:`${src}/pug/data/`
     },
-    compass: {
-        development:{
-            src: `${src}/_source/sass/**/*.scss`,
-            dest: `${dest}/css`,
-            options: {
-                import_path: [`${src}/_source/_function`],
-                sass: `${src}/_source/sass`,
-                css: `${dest}/css`,
-                image: `${dest}/images`,
-                sourcemap: true
-            },
-            autoprefixer: {
-                browsers: [
-                    'last 2 versions',
-                    'safari 5',
-                    'ie 8',
-                    'ie 9',
-                    'opera 12.1',
-                    'ios 6',
-                    'android 4'
-                ],
-                cascade: true
-            }
+    sass: {
+        src: `${src}/sass/**/*.scss`,
+        dest: `${dest}/css`,
+        options:{
+            outputStyle: 'expanded'//nested expanded compact compressed
         },
-        production:{},
+        autoprefixer: {
+            browsers: [
+                '> 1% in CN',
+                'last 10 versions',
+                'Firefox ESR',
+                'safari 5',
+                'ie 8',
+                'ie 9',
+                'opera 12.1',
+                'ios 6',
+                'android 4'
+            ]
+        },
+        base64:{
+            baseDir: `${dest}/css`,
+            extensions: ['svg', 'png', /\.jpg#datauri$/i],
+            exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
+            maxImageSize: 8 * 1024
+        }
     },
     imagemin: {
         src: `${src}/images/**/*`,
@@ -81,15 +70,15 @@ module.exports = {
 	    	`${dest}/js/**/*`
     	],
         sass: `${sass}/sass/**/*.scss`,
-        pug:`${src}/_source/pug/**/*.pug`,
+        pug:`${src}/pug/**/*.pug`,
         images:`${src}/images/**/*.{jpg,jpeg,png,gif}`,
         scripts: `${src}/js/**/*.js`
     },
     sprites: {
-        src: srcAssets + '/images/cur/*.png',
+        src: src + '/images',
         dest: {
-            css: srcAssets + '/_source/sass/sprites/',
-            image: srcAssets + '/images/'
+            css: src + '/_source/sass/sprites/',
+            image: src + '/images/'
         }
     }
 };

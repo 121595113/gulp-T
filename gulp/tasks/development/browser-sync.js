@@ -1,11 +1,16 @@
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
+
+import fs from 'fs';
 const project = require('../../lib/project')();
-const config_b = require('../../config' + project).browsersync.development;
+let config;
+if (fs.existsSync('./gulp/config' + project+'.js')) {
+	config = require('../../config' + project).browsersync;
+}
 
 /**
  * Run the build task and start a server with BrowserSync
  */
 gulp.task('browsersync', () => {
-    browserSync(config_b);
+    browserSync(config.development);
 });

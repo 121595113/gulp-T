@@ -1,0 +1,40 @@
+@mixin rem-sprite-width($sprite,$base-value: $rem-base) {
+  width: rem-calc(nth($sprite, 5),$base-value);
+}
+
+@mixin rem-sprite-height($sprite,$base-value: $rem-base) {
+  height: rem-calc(nth($sprite, 6),$base-value);
+}
+
+@mixin rem-sprite-position($sprite,$base-value: $rem-base) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: rem-calc($sprite-offset-x  $sprite-offset-y,$base-value);
+}
+
+@mixin rem-sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin rem-sprite($sprite,$base-value: $rem-base) {
+  @include rem-sprite-image($sprite);
+  @include rem-sprite-position($sprite,$base-value);
+  @include rem-sprite-width($sprite,$base-value);
+  @include rem-sprite-height($sprite,$base-value);
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin rem-sprites($sprites,$base-value: $rem-base) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include rem-sprite($sprite,$base-value);
+    }
+  }
+}
