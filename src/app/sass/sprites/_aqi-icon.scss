@@ -11,13 +11,13 @@ $icon-home: x y offset_x offset_y width height total_width total_height image_pa
 At the bottom of this section, we provide information about the spritesheet itself
 $spritesheet: width height image $spritesheet-sprites;
 */
-$aqi-icon-lv1: (0px, 0px, 0px, 0px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv1', );
-$aqi-icon-lv2: (36px, 0px, -36px, 0px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv2', );
-$aqi-icon-lv3: (0px, 36px, 0px, -36px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv3', );
-$aqi-icon-lv4: (36px, 36px, -36px, -36px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv4', );
-$aqi-icon-lv5: (72px, 0px, -72px, 0px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv5', );
-$aqi-icon-lv6: (72px, 36px, -72px, -36px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv6', );
-$aqi-icon-lv7: (0px, 72px, 0px, -72px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv7', );
+$aqi-icon-lv1: (0px, 0px, 0px, 0px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv1', 'aqi-icon');
+$aqi-icon-lv2: (36px, 0px, -36px, 0px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv2', 'aqi-icon');
+$aqi-icon-lv3: (0px, 36px, 0px, -36px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv3', 'aqi-icon');
+$aqi-icon-lv4: (36px, 36px, -36px, -36px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv4', 'aqi-icon');
+$aqi-icon-lv5: (72px, 0px, -72px, 0px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv5', 'aqi-icon');
+$aqi-icon-lv6: (72px, 36px, -72px, -36px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv6', 'aqi-icon');
+$aqi-icon-lv7: (0px, 72px, 0px, -72px, 32px, 32px, 104px, 104px, '../images/aqi-icon-sprite.png', 'lv7', 'aqi-icon');
 $aqi-icon-sprites: ($aqi-icon-lv1, $aqi-icon-lv2, $aqi-icon-lv3, $aqi-icon-lv4, $aqi-icon-lv5, $aqi-icon-lv6, $aqi-icon-lv7, );
 
 
