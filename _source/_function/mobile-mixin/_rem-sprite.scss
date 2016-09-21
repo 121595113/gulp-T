@@ -7,9 +7,9 @@
 }
 
 @mixin rem-sprite-position($sprite,$base-value: $rem-base) {
-  $sprite-offset-x: nth($sprite, 3);
-  $sprite-offset-y: nth($sprite, 4);
-  background-position: rem-calc($sprite-offset-x  $sprite-offset-y,$base-value);
+  $sprite-offset-x: strip-unit(nth($sprite, 3)) / (strip-unit(nth($sprite, 5)) - strip-unit(nth($sprite, 7))) * 100%;
+  $sprite-offset-y: strip-unit(nth($sprite, 4)) / (strip-unit(nth($sprite, 6)) - strip-unit(nth($sprite, 8))) * 100%;
+  background-position: $sprite-offset-x  $sprite-offset-y;
 }
 
 @mixin rem-sprite-image($sprite) {
