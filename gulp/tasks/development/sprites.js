@@ -20,14 +20,15 @@ const sprite_arg = require('../../lib/sprite_arg')();
 
 gulp.task('sprites', () => {
     const imgStreams = {};
-    if (sprite_arg) {
-        sprite_arg.forEach(function(item, index) {
+    if (sprite_arg['dir_names']) {
+        sprite_arg['dir_names'].forEach(function(item, index) {
             imgStreams[item] = gulp.src(`${config.src}/${item}/*.png`)
                 .pipe($.plumber())
                 .pipe($.spritesmith({
                     cssName: `_${item}.scss`,
                     cssFormat: 'scss',
                     padding: 4,
+                    algorithm: sprite_arg.layout,
                     cssOpts: {
                         dir_name: item,
                         // cssSelector: function(item) {

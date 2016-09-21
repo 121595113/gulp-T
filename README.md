@@ -25,6 +25,21 @@ gulp app:build --app
 ```
 gulp sprites -s 文件夹名1,文件夹名2,文件夹名3,文件夹名4 --app
 ```
+同时合图支持自定义`layout`，在命令行添加参数`-L`，空格后面跟上要合成的方式，如：
+```
+gulp sprites -s 文件夹名 -L top-down --app
+```
+可选参数见表（[来源gulp.spritesmith官网](https://www.npmjs.com/package/gulp.spritesmith#algorithms)）
+
+|         `top-down`        |          `left-right`         |         `diagonal`        |           `alt-diagonal`          |          `binary-tree`          |
+|---------------------------|-------------------------------|---------------------------|-----------------------------------|---------------------------------|
+| ![top-down][top-down-img] | ![left-right][left-right-img] | ![diagonal][diagonal-img] | ![alt-diagonal][alt-diagonal-img] | ![binary-tree][binary-tree-img] |
+
+[top-down-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/top-down.png
+[left-right-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/left-right.png
+[diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/diagonal.png
+[alt-diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/alt-diagonal.png
+[binary-tree-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/binary-tree.png
 #### 2、清理
 ```
 gulp clean --app
