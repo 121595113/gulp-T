@@ -1,8 +1,7 @@
 import gulp from 'gulp';
-import spritesmith from 'gulp.spritesmith';
-import plumber from 'gulp-plumber';
-import buffer from 'vinyl-buffer';
-import merge from 'merge-stream';
+const $ = require('gulp-load-plugins')();
+// import spritesmith from 'gulp.spritesmith';
+// import plumber from 'gulp-plumber';
 import path from 'path';
 const handleErrors = require('../../lib/handleErrors');
 
@@ -24,8 +23,8 @@ gulp.task('sprites', () => {
     if (sprite_arg) {
         sprite_arg.forEach(function(item, index) {
             imgStreams[item] = gulp.src(`${config.src}/${item}/*.png`)
-                .pipe(plumber())
-                .pipe(spritesmith({
+                .pipe($.plumber())
+                .pipe($.spritesmith({
                     cssName: `_${item}.scss`,
                     cssFormat: 'scss',
                     padding: 4,

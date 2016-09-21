@@ -14,7 +14,7 @@ module.exports = {
                     // '/bower_components': 'bower_components'
                 }
             },
-            browser: [/*"chrome",*/"google chrome"],
+            browser: ["chrome"/*,"google chrome"*/],
             open: 'external' // local, external, ui, ui-external, tunnel or false
         }
     },

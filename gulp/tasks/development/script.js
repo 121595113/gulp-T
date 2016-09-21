@@ -1,6 +1,7 @@
 import gulp from 'gulp';
-import plumber from 'gulp-plumber';
-import uglify from 'gulp-uglify';
+const $ = require('gulp-load-plugins')();
+// import plumber from 'gulp-plumber';
+// import uglify from 'gulp-uglify';
 
 import fs from 'fs';
 const project = require('../../lib/project')();
@@ -11,7 +12,7 @@ if (fs.existsSync('./gulp/config' + project + '.js')) {
 
 gulp.task('scripts', () => {
     return gulp.src(config.src)
-        .pipe(plumber())
-        .pipe(uglify())
+        .pipe($.plumber())
+        .pipe($.uglify())
         .pipe(gulp.dest(config.dest));
 });

@@ -1,7 +1,8 @@
 import gulp from 'gulp';
-import plumber from 'gulp-plumber';
-import data from 'gulp-data';
-import pug from 'gulp-pug';
+const $ = require('gulp-load-plugins')();
+// import plumber from 'gulp-plumber';
+// import data from 'gulp-data';
+// import pug from 'gulp-pug';
 import path from 'path';
 
 import fs from 'fs';
@@ -13,8 +14,8 @@ if (fs.existsSync('./gulp/config' + project+'.js')) {
 
 gulp.task('pug', () => {
     return gulp.src(config.src)
-        .pipe(plumber())
-        .pipe(data(function(file) {
+        .pipe($.plumber())
+        .pipe($.data(function(file) {
             let pageData = './' + config.data + path.basename(file.path, '.pug') + '.json';
             if (fs.existsSync(pageData)) {
                 return require('../../.' + pageData);
@@ -22,7 +23,7 @@ gulp.task('pug', () => {
                 return require('../../../' + config.data + 'data.json');
             }
         }))
-        .pipe(pug({
+        .pipe($.pug({
             pretty: true
         }))
         .pipe(gulp.dest(config.dest))

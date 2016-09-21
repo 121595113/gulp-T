@@ -1,6 +1,7 @@
 import gulp from 'gulp';
-import plumber from 'gulp-plumber';
-import imagemin from 'gulp-imagemin';
+const $ = require('gulp-load-plugins')();
+// import plumber from 'gulp-plumber';
+// import imagemin from 'gulp-imagemin';
 import merge from 'merge-stream';
 
 import fs from 'fs';
@@ -12,14 +13,14 @@ if (fs.existsSync('./gulp/config' + project + '.js')) {
 
 gulp.task('imagemin', () => {
     let images1 = gulp.src(config.src)
-        .pipe(plumber())
-        .pipe(imagemin({
+        .pipe($.plumber())
+        .pipe($.imagemin({
             progressive: true
         }))
         .pipe(gulp.dest(config.dest)),
         images2 = gulp.src(config.srcico)
-        .pipe(plumber())
-        .pipe(imagemin({
+        .pipe($.plumber())
+        .pipe($.imagemin({
             progressive: true
         }))
         .pipe(gulp.dest(config.destico));
