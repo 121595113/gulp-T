@@ -17,9 +17,16 @@
     background-image: url(#{$sprite-image});
 }
 
+@mixin rem-sprite-size($sprite,$base-value: $rem-base) {
+    $sprite-width: nth($sprite, 7);
+    $sprite-height: nth($sprite, 8);
+    background-size: rem-calc($sprite-width $sprite-height,$base-value);
+}
+
 @mixin rem-sprite($sprite, $base-value: $rem-base) {
     @include rem-sprite-image($sprite);
     @include rem-sprite-position($sprite, $base-value);
+    @include rem-sprite-size($sprite, $base-value);
     @include rem-sprite-width($sprite, $base-value);
     @include rem-sprite-height($sprite, $base-value);
 }
