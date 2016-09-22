@@ -1,37 +1,51 @@
+$rem-base:720;
+$reset:true;
+$Response:true;
+$mediaArrays:(320 375 400 480 640 720);
+
 @import "../../../_source/_function/mobile-mixin";
 @import "./sprites/cur";
 @import "./sprites/cur1";
 @import "./sprites/aqi-icon";
 
-// .head{
-// 	font-size: rem-calc(80);
-// }
-
-// @include rem-sprites("cur/*.png");
-
-// body{
-// 	background: green;
-// 	opacity: 0.5;
-// }
-
-// div{
-// 	// @include rem-sprite("cur/*.png",lv1);
-// }
-
 
 body{
 	display: flex;
-	background: yellow;
-	width: rem-calc(100);
+	background: red;
 }
 
-div{
-	@include rem-sprite($cur1-lv-3,16);
+.div1{
+	// 引用单个合图
+	@include rem-sprite($aqi-icon-lv2,720);
 }
+
+// 引用全部合图
+@include rem-sprites($cur-sprites,$pre-name:'demo',$separator:'__');
+
 
 h1{
-	color: blue
+	text-align: center;
+	font-family: Microsoft Yahei, sans-serif;
+	// 字体大小可以用rem
+	font-size: rem-calc(60);
+	color: blue;
 }
+
+ul{
+	padding: 0;
+	list-style: none;
+	li{
+		float: left;
+		margin-right: rem-calc(10);
+	}
+}
+
+.div2{
+	width: rem-calc(200);
+	height: rem-calc(200);
+	background: yellow;
+}
+
 
 
 

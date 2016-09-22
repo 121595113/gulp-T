@@ -3,7 +3,16 @@ append head
 	title learn gulp
 	link(rel='stylesheet',href='css/style.css')
 block content
-	h1 呵呵，我是app!#{title}
-	div
+	h1 我是一个认真的demo
+	h2 #{title}
+	p 单个图片的使用
+	div.div1
+	p 多个图片的使用
+	ul.clearfix
+		-for(var i=2;i<=7;i++){
+			li(class="demo__lv"+i)
+		-}
+
+	div.div2 我是不是很黄
 block script
 	script(src='./js/index.js')

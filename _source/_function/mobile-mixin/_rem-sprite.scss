@@ -29,6 +29,7 @@
     @include rem-sprite-size($sprite, $base-value);
     @include rem-sprite-width($sprite, $base-value);
     @include rem-sprite-height($sprite, $base-value);
+    background-repeat: no-repeat;
 }
 
 
