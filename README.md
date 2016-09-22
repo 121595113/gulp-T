@@ -40,6 +40,7 @@ gulp sprites -s 文件夹名 -L top-down --app
 [diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/diagonal.png
 [alt-diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/alt-diagonal.png
 [binary-tree-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/binary-tree.png
+关于合图的使用参考[sass中如何使用合图？](#a)
 #### 2、清理
 ```
 gulp clean --app
@@ -304,4 +305,70 @@ gulp.task('app:build', gulpSequence(
         'scripts'
     ]
 ));
+```
+<span id="a"></span>
+#### 7、样式中如何使用合图？
+由于合图不是高频操作的任务，所以把任务独立出来显得就很有必要。合图任务会在当前项目`'sass/sprites/'`文件夹下生成对应的配置文件，如果涉及到添加、删除、修改图片的情况，需要重新生成。调用方式定义在`'_source/_function/'`中：
+```scss
+// 1、首先引入所需的@mixin
+@import "../../../_source/_function/mobile-mixin";
+
+// 2、然后引入合图生成的配置文件，这里以'cur'为例
+@import "./sprites/cur";
+
+// 3、使用
+<!-- 3.1单个图片的引用 -->
+div{
+  @include sprite($cur-lv2);// 参数为$文件夹名-文件名
+}
+
+// 3.2.1一次性引入全部
+@include sprites($cur-sprites);// 参数为$文件夹名-sprites
+
+// 3.2.2你可以自定义输出样式前缀，参数为$pre-name
+@include sprites($cur-sprites,$pre-name:'icon');
+
+// 3.2.3你也可以自定义输出样式连字符，参数为$separator
+@include sprites($cur-sprites,$separator:'__');
+```
+同时支持rem方式的调用，只要在方法前添加rem-前缀,内部调用了rem-calc()
+```scss
+div{
+  @include rem-sprite($cur-lv2);// 参数为$文件夹名-文件名
+}
+@include rem-sprites($cur-sprites);
+
+// rem计算基数可以自定义，默认是全局的$rem-base
+div{
+  @include rem-sprite($cur-lv2,$rem-base:720);// 带rem计算基数的,720是设计稿的尺寸
+}
+@include rem-sprites($cur-sprites,$rem-base:720);// 带rem计算基数的,720是设计稿的尺寸
+```
+#### 8、关于px转rem方式？
+rem的转换时通过@function rem-calc()转换的,使用方式如下
+```scss
+div{
+    width: rem-calc(100px);// px单位可以省略,建议一直省略
+}
+
+// 支持多个参数
+div{
+    margin: rem-calc(10 20 auto 40);
+}
+
+// 支持自定义计算基数，以320为分隔点，'< 320'根据字体大小计算，'>= 320'根据设计稿宽度计算
+div{
+    width: rem-calc(100px,720);// 这里是根据设计稿720计算的
+    margin: rem-calc(10 20 auto 40,32);// 这里是根据字体大小32计算的
+}
+```
+#### 9、关于移动适配的实现？
+适配的实现有好多种。有通过js控制的（[手淘方案](https://github.com/amfe/lib-flexible)），有通过css控制的，这里采用后者。使用方式如下
+```scss
+$Response:true;// 在sass文件中将$Response设为true就开启了响应式
+```
+默认适配手机尺寸列表：`$mediaArrays:(320 360 375 400 480 540 640 720) !default;`,你也可以自定义适配的手机尺寸
+```scss
+$Response:true;
+$mediaArrays:(320 375 480 640 720);// 自定义适配手机尺寸
 ```
