@@ -40,7 +40,7 @@ gulp sprites -s 文件夹名 -L top-down --app
 [diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/diagonal.png
 [alt-diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/alt-diagonal.png
 [binary-tree-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/binary-tree.png
-关于合图的使用参考[sass中如何使用合图？](#a)
+关于合图的使用参考[sass中如何使用合图？](#user-content-7样式中如何使用合图)
 #### 2、清理
 ```
 gulp clean --app
@@ -307,7 +307,7 @@ gulp.task('app:build', gulpSequence(
 ));
 ```
 
-#### 7、样式中如何使用合图？<span id="a">&nbsp;</span>
+#### 7、样式中如何使用合图？
 由于合图不是高频操作的任务，所以把任务独立出来显得就很有必要。合图任务会在当前项目`'sass/sprites/'`文件夹下生成对应的配置文件，如果涉及到添加、删除、修改图片的情况，需要重新生成。调用方式定义在`'_source/_function/'`中：
 ```scss
 // 1、首先引入所需的@mixin
