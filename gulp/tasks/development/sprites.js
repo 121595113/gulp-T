@@ -30,16 +30,7 @@ gulp.task('sprites', () => {
                     padding: 4,
                     algorithm: sprite_arg.layout,
                     cssOpts: {
-                        dir_name: item,
-                        // cssSelector: function(item) {
-                        //     // If this is a hover sprite, name it as a hover one (e.g. 'home-hover' -> 'home:hover')
-                        //     if (item.name.indexOf('-hover') !== -1) {
-                        //         return '.icon-' + item.name.replace('-hover', ':hover');
-                        //         // Otherwise, use the name as the selector (e.g. 'home' -> 'home')
-                        //     } else {
-                        //         return '.icon-' + item.name;
-                        //     }
-                        // }
+                        dir_name: item
                     },
                     cssTemplate: path.resolve('./gulp/lib/handlebarsInheritance.scss.handlebars'),
                     imgName: `${item}-sprite.png`,
@@ -50,6 +41,7 @@ gulp.task('sprites', () => {
                 .pipe(gulp.dest(config.dest.image));
 
             imgStreams[item].css
+                .pipe($.replace(/('\b.*)-(active|hover')/g, '$1:$2'))
                 .pipe(gulp.dest(config.dest.css));
         });
     }

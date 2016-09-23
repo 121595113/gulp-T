@@ -16,8 +16,8 @@ $cur-lv3: (80px, 0px, -80px, 0px, 76px, 88px, 316px, 180px, '../images/cur-sprit
 $cur-lv4: (160px, 0px, -160px, 0px, 76px, 88px, 316px, 180px, '../images/cur-sprite.png', 'lv4', 'cur');
 $cur-lv5: (0px, 92px, 0px, -92px, 76px, 88px, 316px, 180px, '../images/cur-sprite.png', 'lv5', 'cur');
 $cur-lv6: (80px, 92px, -80px, -92px, 76px, 88px, 316px, 180px, '../images/cur-sprite.png', 'lv6', 'cur');
-$cur-lv7-hover: (160px, 92px, -160px, -92px, 76px, 88px, 316px, 180px, '../images/cur-sprite.png', 'lv7-hover', 'cur');
+$cur-lv7-active: (160px, 92px, -160px, -92px, 76px, 88px, 316px, 180px, '../images/cur-sprite.png', 'lv7:active', 'cur');
 $cur-lv7: (240px, 0px, -240px, 0px, 76px, 88px, 316px, 180px, '../images/cur-sprite.png', 'lv7', 'cur');
-$cur-sprites: ($cur-lv2, $cur-lv3, $cur-lv4, $cur-lv5, $cur-lv6, $cur-lv7-hover, $cur-lv7, );
+$cur-sprites: ($cur-lv2, $cur-lv3, $cur-lv4, $cur-lv5, $cur-lv6, $cur-lv7-active, $cur-lv7, );
 
 

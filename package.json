@@ -1,6 +1,6 @@
 {
   "name": "gulp-T",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "gulp 综合应用",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-pug": "^3.0.3",
+    "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.3.2",
     "gulp-sequence": "^0.4.6",
     "gulp-sourcemaps": "^1.6.0",
