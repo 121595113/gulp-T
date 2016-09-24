@@ -14,23 +14,23 @@ module.exports = {
                     // '/bower_components': 'bower_components'
                 }
             },
-            browser: ["chrome"/*,"google chrome"*/],
+            browser: ["chrome" /*,"google chrome"*/ ],
             open: 'external' // local, external, ui, ui-external, tunnel or false
         }
     },
     delete: {
         src: [dest]
     },
-    pug:{
-		src:[`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
-		dest:dest,
-		data:`${src}/pug/data/`
+    pug: {
+        src: [`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
+        dest: dest,
+        data: `${src}/pug/data/`
     },
     sass: {
         src: `${src}/sass/**/*.scss`,
         dest: `${dest}/css`,
-        options:{
-            outputStyle: 'expanded'//nested expanded compact compressed
+        options: {
+            outputStyle: 'expanded' //nested expanded compact compressed
         },
         autoprefixer: {
             browsers: [
@@ -45,7 +45,7 @@ module.exports = {
                 'android 4'
             ]
         },
-        base64:{
+        base64: {
             baseDir: `${dest}/css`,
             extensions: ['svg', 'png', /\.jpg#datauri$/i],
             exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
@@ -53,25 +53,29 @@ module.exports = {
         }
     },
     imagemin: {
-        src: `${src}/images/**/*`,
-        dest: `${dest}/images/`,
-        srcico:`${src}/*.{ico,png}`,
-        destico:`${dest}/`
+        images: {
+            src: `${src}/images/**/*`,
+            dest: `${dest}/images/`
+        },
+        ico: {
+            src: `${src}/*.{ico,png}`,
+            dest: `${dest}/`
+        }
     },
-    uglify:{
-    	src:`${src}/js/**/*.js`,
-    	dest:`${dest}/js/`
+    uglify: {
+        src: `${src}/js/**/*.js`,
+        dest: `${dest}/js/`
     },
     watch: {
-    	changes:[
-	    	`${dest}/**/*.html`,
-	    	`${dest}/images/**/*`,
-	    	`${dest}/css/**/*.css`,
-	    	`${dest}/js/**/*`
-    	],
+        changes: [
+            `${dest}/**/*.html`,
+            `${dest}/images/**/*`,
+            `${dest}/css/**/*.css`,
+            `${dest}/js/**/*`
+        ],
         sass: `${sass}/sass/**/*.scss`,
-        pug:`${src}/pug/**/*.pug`,
-        images:`${src}/images/**/*.{jpg,jpeg,png,gif}`,
+        pug: `${src}/pug/**/*.pug`,
+        images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
         scripts: `${src}/js/**/*.js`
     },
     sprites: {

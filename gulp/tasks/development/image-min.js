@@ -2,7 +2,7 @@ import gulp from 'gulp';
 const $ = require('gulp-load-plugins')();
 // import plumber from 'gulp-plumber';
 // import imagemin from 'gulp-imagemin';
-import merge from 'merge-stream';
+let merge = require('merge-stream')();
 
 import fs from 'fs';
 const project = require('../../lib/project')();
@@ -12,18 +12,15 @@ if (fs.existsSync('./gulp/config' + project + '.js')) {
 }
 
 gulp.task('imagemin', () => {
-    let images1 = gulp.src(config.src)
-        .pipe($.plumber())
-        .pipe($.imagemin({
-            progressive: true
-        }))
-        .pipe(gulp.dest(config.dest)),
-        images2 = gulp.src(config.srcico)
-        .pipe($.plumber())
-        .pipe($.imagemin({
-            progressive: true
-        }))
-        .pipe(gulp.dest(config.destico));
-
-    return merge(images1, images2);
+    let images = {};
+    for (let i in config) {
+        images[i] = gulp.src(config[i].src)
+            .pipe($.plumber())
+            .pipe($.imagemin({
+                progressive: true
+            }))
+            .pipe(gulp.dest(config[i].dest));
+        merge.add(images[i]);
+    }
+    return merge.isEmpty() ? null : merge;
 });

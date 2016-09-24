@@ -46,10 +46,14 @@ module.exports = {
         }
     },
     imagemin: {
-        src: `${src}/images/**/*`,
-        dest: `${dest}/images/`,
-        srcico:`${src}/*.{ico,png}`,
-        destico:`${dest}/`
+        images: {
+            src: `${src}/images/**/*`,
+            dest: `${dest}/images/`
+        },
+        ico: {
+            src: `${src}/*.{ico,png}`,
+            dest: `${dest}/`
+        }
     },
     uglify:{
     	src:`${src}/js/**/*.js`,
