@@ -14,7 +14,7 @@ npm install
 ### 二、开发模式
 *如无特殊说明以下都以app项目为例*
 ```
-gulp app --app // 其中app为项目读取配置文件所需参数名，配置文件路径'gulp/config.app.js'
+gulp app --app // 其中`-app`为项目读取配置文件所需参数名，配置文件路径'gulp/config.app.js'
 ```
 ### 三、生产模式
 ```
