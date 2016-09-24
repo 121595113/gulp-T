@@ -14,7 +14,7 @@ npm install
 ### 二、开发模式
 *如无特殊说明以下都以app项目为例*
 ```
-gulp app --app // 其中`-app`为项目读取配置文件所需参数名，配置文件路径'gulp/config.app.js'
+gulp app --app // 其中‘-app’为项目读取配置文件所需参数名，配置文件路径'gulp/config.app.js'
 ```
 ### 三、生产模式
 ```
@@ -25,11 +25,11 @@ gulp app:build --app
 ```
 gulp sprites -s 文件夹名1,文件夹名2,文件夹名3,文件夹名4 --app
 ```
-同时合图支持自定义`layout`，在命令行添加参数`-L`，空格后面跟上要合成的方式，如：
+同时合图支持自定义`layout`，在命令行添加参数`-L`，空格后跟上要合成的方式，如：
 ```
 gulp sprites -s 文件夹名 -L top-down --app
 ```
-可选参数见下表（[来源gulp.spritesmith官网](https://www.npmjs.com/package/gulp.spritesmith#algorithms)）
+可选参数见下表（[来源gulp.spritesmith官网](https://www.npmjs.com/package/gulp.spritesmith#algorithms)）,默认`binary-tree`
 
 |         `top-down`        |          `left-right`         |         `diagonal`        |           `alt-diagonal`          |          `binary-tree`          |
 |---------------------------|-------------------------------|---------------------------|-----------------------------------|---------------------------------|
@@ -40,7 +40,7 @@ gulp sprites -s 文件夹名 -L top-down --app
 [diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/diagonal.png
 [alt-diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/alt-diagonal.png
 [binary-tree-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/binary-tree.png
-关于合图的使用参考[sass中如何使用合图？](#user-content-7样式中如何使用合图)
+关于合图后的图片引用参考[sass中如何使用合图？](#user-content-7样式中如何使用合图)
 #### 2、清理
 ```
 gulp clean --app
@@ -308,16 +308,16 @@ gulp.task('app:build', gulpSequence(
 ```
 
 #### 7、样式中如何使用合图？
-由于合图不是高频操作的任务，所以把任务独立出来显得就很有必要。合图任务会在当前项目`'sass/sprites/'`文件夹下生成对应的配置文件，如果涉及到添加、删除、修改图片的情况，需要重新生成。调用方式定义在`'_source/_function/'`中：
+由于合图任务不是高频操作的任务，所以把它独立出来显得尤为重要。合图任务会在当前项目`'sass/sprites/'`文件夹下生成对应的配置文件，如果涉及到添加、删除、修改图片的情况，需要重新生成。调用方式定义在`'_source/_function/'`中：
 ```scss
-// 1、首先引入所需的@mixin
+// 1、首先引入调用所需的@mixin
 @import "../../../_source/_function/mobile-mixin";
 
 // 2、然后引入合图生成的配置文件，这里以'cur'为例
 @import "./sprites/cur";
 
 // 3、使用
-<!-- 3.1单个图片的引用 -->
+// 3.1单个图片的引用
 div{
   @include sprite($cur-lv2);// 参数为$文件夹名-文件名
 }
