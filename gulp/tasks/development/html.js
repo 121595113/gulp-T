@@ -9,7 +9,7 @@ if (fs.existsSync('./gulp/config' + project+'.js')) {
 }
 
 gulp.task('html',() => {
-    return gulp.src(`${config.src}/*.{html,htm}`)
+    return gulp.src(`${config.src}/**/*.{html,htm}`)
     .pipe(plumber())
     .pipe(gulp.dest(config.dest))
 });
