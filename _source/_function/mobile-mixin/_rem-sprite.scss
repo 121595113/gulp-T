@@ -1,12 +1,12 @@
-@mixin rem-sprite-width($sprite, $base-value:$rem-base) {
-    width: rem-calc(nth($sprite, 5), $base-value);
+@mixin rem-sprite-width($sprite, $rem-base:$rem-base) {
+    width: rem-calc(nth($sprite, 5), $rem-base);
 }
 
-@mixin rem-sprite-height($sprite, $base-value:$rem-base) {
-    height: rem-calc(nth($sprite, 6), $base-value);
+@mixin rem-sprite-height($sprite, $rem-base:$rem-base) {
+    height: rem-calc(nth($sprite, 6), $rem-base);
 }
 
-@mixin rem-sprite-position($sprite, $base-value:$rem-base) {
+@mixin rem-sprite-position($sprite, $rem-base:$rem-base) {
     $sprite-offset-x: strip-unit(nth($sprite, 3)) / (strip-unit(nth($sprite, 5)) - strip-unit(nth($sprite, 7))) * 100%;
     $sprite-offset-y: strip-unit(nth($sprite, 4)) / (strip-unit(nth($sprite, 6)) - strip-unit(nth($sprite, 8))) * 100%;
     background-position: $sprite-offset-x $sprite-offset-y;
@@ -17,20 +17,20 @@
     background-image: url(#{$sprite-image});
 }
 
-@mixin rem-sprite-size($sprite, $base-value:$rem-base) {
+@mixin rem-sprite-size($sprite, $rem-base:$rem-base) {
     $sprite-width: nth($sprite, 7);
     $sprite-height: nth($sprite, 8);
-    background-size: rem-calc($sprite-width $sprite-height, $base-value);
+    background-size: rem-calc($sprite-width $sprite-height, $rem-base);
 }
 
-@mixin rem-sprite($sprite, $base-value:$rem-base, $repeat:true, $expand:false) {
+@mixin rem-sprite($sprite, $rem-base:$rem-base, $repeat:true, $expand:false) {
     @if $expand == false {
         @include rem-sprite-image($sprite);
-        @include rem-sprite-size($sprite, $base-value);
+        @include rem-sprite-size($sprite, $rem-base);
     }
-    @include rem-sprite-position($sprite, $base-value);
-    @include rem-sprite-width($sprite, $base-value);
-    @include rem-sprite-height($sprite, $base-value);
+    @include rem-sprite-position($sprite, $rem-base);
+    @include rem-sprite-width($sprite, $rem-base);
+    @include rem-sprite-height($sprite, $rem-base);
     @if $repeat==true and $expand == false{
         background-repeat: no-repeat;
     }
@@ -44,14 +44,14 @@ The `sprites` mixin generates identical output to the CSS template
 @include sprites($spritesheet-sprites);
 */
 
-@mixin rem-sprites($sprites, $base-value:$rem-base, $separator:'-', $pre-name:null, $repeat:true, $expand:false) {
+@mixin rem-sprites($sprites, $rem-base:$rem-base, $separator:'-', $pre-name:null, $repeat:true, $expand:false) {
     @if $pre-name==null {
         $pre-name: nth(nth($sprites, 1), 11);
     }
     @if $expand == true {
         .#{$pre-name+$separator}sprites{
             @include rem-sprite-image(nth($sprites, 1));
-            @include rem-sprite-size(nth($sprites, 1), $base-value);
+            @include rem-sprite-size(nth($sprites, 1), $rem-base);
             @if $repeat == true {
                 background-repeat: no-repeat;
             }
@@ -60,7 +60,7 @@ The `sprites` mixin generates identical output to the CSS template
     @each $sprite in $sprites {
         $sprite-name: nth($sprite, 10);
         .#{$pre-name+$separator+$sprite-name} {
-            @include rem-sprite($sprite, $base-value, $repeat, $expand);
+            @include rem-sprite($sprite, $rem-base, $repeat, $expand);
         }
     }
 }
