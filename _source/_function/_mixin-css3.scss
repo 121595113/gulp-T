@@ -27,6 +27,66 @@
     -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{$path}", sizingMethod="scale");
 }
 
+// 三角形
+@mixin triangle($direction, $size, $borderColor ) {
+  content:"";
+  height: 0;
+  width: 0;
+
+  @if $direction == top {
+    border-bottom:$size solid $borderColor;
+    border-left:$size dashed transparent;
+    border-right:$size dashed transparent;
+  }
+  @else if $direction == right {
+    border-left:$size solid $borderColor;
+    border-top:$size dashed transparent;
+    border-bottom:$size dashed transparent;
+  }
+  @else if $direction == bottom {
+    border-top:$size solid $borderColor;
+    border-left:$size dashed transparent;
+    border-right:$size dashed transparent;
+  }
+  @else if $direction == left {
+    border-right:$size solid $borderColor;
+    border-top:$size dashed transparent;
+    border-bottom:$size dashed transparent;
+  }
+}
+
+
+@mixin _border-width() {
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        box-sizing: border-box;
+        transform: scale(.5);
+        transform-origin: 0 0;
+        @content;
+    }
+}
+// 1px边框线
+@mixin border-width($width:0px 0px 0px 0px, $radius:null, $color:null, $style:solid) {
+    @include _border-width() {
+        @if $width !=null {
+            border-width: $width;
+            @if $color !=null {
+                border-color: $color;
+            }
+            @if $radius !=null {
+                border-radius: $radius;
+            }
+            border-style: $style;
+            @content;
+        }
+    }
+}
 // Flexible Box
 @mixin display-flex($display) {
     @include flexbox((display: box), 1);
