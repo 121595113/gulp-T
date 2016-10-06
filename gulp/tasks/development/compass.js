@@ -9,7 +9,7 @@ if (fs.existsSync('./gulp/config' + project+'.js')) {
 }
 
 
-gulp.task('compass', () => {
+gulp.task('compass', (callback) => {
     gulp.src(config.development.src)
         .pipe($.plumber())
         .pipe($.sourcemaps.init())
@@ -19,4 +19,5 @@ gulp.task('compass', () => {
         .on('error', () => {})
         .pipe($.sourcemaps.write('./'))
         .pipe(gulp.dest(config.development.dest));
+        callback();
 });
