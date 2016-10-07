@@ -1,7 +1,7 @@
 const src = 'app';
 const dest = 'dist';
 const sass = `${src}/_source`;
-
+const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
 module.exports = {
     browsersync: {
         development: {
@@ -14,7 +14,7 @@ module.exports = {
                     // '/bower_components': 'bower_components'
                 }
             },
-            browser: ["chrome"/*,"google chrome"*/],
+            browser: [BS],
             open: 'ui' // local, external, ui, ui-external, tunnel or false
         }
     },
