@@ -24,7 +24,8 @@ module.exports = {
     pug: {
         src: [`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
         dest: dest,
-        data: `${src}/pug/data/`
+        data: `${src}/pug/data/`,
+        charset:'utf-8'
     },
     sass: {
         src: `${src}/sass/**/*.scss`,
