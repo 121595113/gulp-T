@@ -182,8 +182,8 @@ body {
 
 .div1 {
   background-image: url(../images/aqi-icon-sprite.png);
-  background-position: 50% 0%;
   background-size: 3.85185rem 3.85185rem;
+  background-position: 50% 0%;
   width: 1.18519rem;
   height: 1.18519rem;
   background-repeat: no-repeat;
@@ -191,8 +191,8 @@ body {
 
 .demo__lv2 {
   background-image: url(../images/cur-sprite.png);
-  background-position: 0% 0%;
   background-size: 11.7037rem 6.66667rem;
+  background-position: 0% 0%;
   width: 2.81481rem;
   height: 3.25926rem;
   background-repeat: no-repeat;
@@ -200,8 +200,8 @@ body {
 
 .demo__lv3 {
   background-image: url(../images/cur-sprite.png);
-  background-position: 33.33333% 0%;
   background-size: 11.7037rem 6.66667rem;
+  background-position: 33.33333% 0%;
   width: 2.81481rem;
   height: 3.25926rem;
   background-repeat: no-repeat;
@@ -209,8 +209,8 @@ body {
 
 .demo__lv4 {
   background-image: url(../images/cur-sprite.png);
-  background-position: 66.66667% 0%;
   background-size: 11.7037rem 6.66667rem;
+  background-position: 66.66667% 0%;
   width: 2.81481rem;
   height: 3.25926rem;
   background-repeat: no-repeat;
@@ -218,8 +218,8 @@ body {
 
 .demo__lv5 {
   background-image: url(../images/cur-sprite.png);
-  background-position: 0% 100%;
   background-size: 11.7037rem 6.66667rem;
+  background-position: 0% 100%;
   width: 2.81481rem;
   height: 3.25926rem;
   background-repeat: no-repeat;
@@ -227,8 +227,8 @@ body {
 
 .demo__lv6 {
   background-image: url(../images/cur-sprite.png);
-  background-position: 33.33333% 100%;
   background-size: 11.7037rem 6.66667rem;
+  background-position: 33.33333% 100%;
   width: 2.81481rem;
   height: 3.25926rem;
   background-repeat: no-repeat;
@@ -236,8 +236,8 @@ body {
 
 .demo__lv7:active {
   background-image: url(../images/cur-sprite.png);
-  background-position: 66.66667% 100%;
   background-size: 11.7037rem 6.66667rem;
+  background-position: 66.66667% 100%;
   width: 2.81481rem;
   height: 3.25926rem;
   background-repeat: no-repeat;
@@ -245,8 +245,8 @@ body {
 
 .demo__lv7 {
   background-image: url(../images/cur-sprite.png);
-  background-position: 100% 0%;
   background-size: 11.7037rem 6.66667rem;
+  background-position: 100% 0%;
   width: 2.81481rem;
   height: 3.25926rem;
   background-repeat: no-repeat;
