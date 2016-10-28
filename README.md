@@ -106,6 +106,7 @@ gulp.task('sass:build', () => {
 const src = 'src/app';
 const dest = 'build/app';
 const sass = `${src}`;
+const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
 
 module.exports = {
     browsersync: {
@@ -119,7 +120,7 @@ module.exports = {
                     // '/bower_components': 'bower_components'
                 }
             },
-            browser: ["chrome"/*,"google chrome"*/],
+            browser: [BS],
             open: 'external' // local, external, ui, ui-external, tunnel or false
         }
     },
