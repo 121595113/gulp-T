@@ -56,9 +56,9 @@
 }
 
 
-@mixin _border-width() {
+@mixin _hairline($el) {
     position: relative;
-    &:after {
+    &:#{$el} {
         content: "";
         position: absolute;
         top: 0;
@@ -66,14 +66,14 @@
         width: 200%;
         height: 200%;
         box-sizing: border-box;
-        transform: scale(.5);
+        transform: scale3d(.5,.5,.5);
         transform-origin: 0 0;
         @content;
     }
 }
 // 1px边框线
-@mixin border-width($width:0px 0px 0px 0px, $radius:null, $color:null, $style:solid) {
-    @include _border-width() {
+@mixin hairline($width:0px 0px 0px 0px, $radius:null, $color:null, $style:solid ,$el:after) {
+    @include _hairline($el) {
         @if $width !=null {
             border-width: $width;
             @if $color !=null {
