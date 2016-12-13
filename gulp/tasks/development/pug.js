@@ -1,6 +1,5 @@
 import gulp from 'gulp';
 const $ = require('gulp-load-plugins')();
-const convertEncoding = require('fd-gulp-convert-encoding');
 // import plumber from 'gulp-plumber';
 // import data from 'gulp-data';
 // import pug from 'gulp-pug';
@@ -27,6 +26,5 @@ gulp.task('pug', () => {
         .pipe($.pug({
             pretty: true
         }))
-        .pipe(convertEncoding(config.charset ? config.charset : 'utf-8'))
         .pipe(gulp.dest(config.dest))
 });
