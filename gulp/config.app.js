@@ -1,6 +1,5 @@
 const src = 'src/app';
 const dest = 'build/app';
-const sass = `${src}`;
 const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
 module.exports = {
     browsersync: {
@@ -24,7 +23,8 @@ module.exports = {
     pug: {
         src: [`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
         dest: dest,
-        data: `${src}/pug/data/`
+        data: `${src}/pug/data/`,
+        charset:'utf-8'
     },
     sass: {
         src: `${src}/sass/**/*.scss`,
@@ -73,7 +73,7 @@ module.exports = {
             `${dest}/css/**/*.css`,
             `${dest}/js/**/*`
         ],
-        sass: `${sass}/sass/**/*.scss`,
+        sass: `${src}/sass/**/*.scss`,
         pug: `${src}/pug/**/*.pug`,
         images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
         scripts: `${src}/js/**/*.js`

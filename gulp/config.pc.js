@@ -1,6 +1,5 @@
 const src = 'src/pc';
 const dest = 'build/pc';
-const sass = `${src}`;
 const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
 module.exports = {
     browsersync: {
@@ -22,8 +21,8 @@ module.exports = {
         src: [dest]
     },
     html:{
-		src:src,
-		dest:dest
+    		src:src,
+    		dest:dest
     },
     sass: {
         src: `${src}/sass/**/*.scss`,
@@ -66,7 +65,7 @@ module.exports = {
 	    	`${dest}/css/**/*.css`,
 	    	`${dest}/js/**/*`
     	],
-        sass: `${sass}/sass/**/*.scss`,
+        sass: `${src}/sass/**/*.scss`,
         html:`${src}/**/*.html`,
         images:`${src}/images/**/*.{jpg,jpeg,png,gif}`,
         scripts: `${src}/js/**/*.js`
