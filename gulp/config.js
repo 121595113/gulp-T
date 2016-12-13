@@ -1,6 +1,5 @@
 const src = 'app';
 const dest = 'dist';
-const sass = `${src}/_source`;
 const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
 module.exports = {
     browsersync: {
@@ -18,21 +17,27 @@ module.exports = {
             open: 'ui' // local, external, ui, ui-external, tunnel or false
         }
     },
+    copy: {
+        pic:{
+            src: `${src}/pic/**/*`,
+            dest: `${dest}/pic/`
+        }
+    },
     delete: {
         src: [dest]
     },
     pug:{
-        src:[`${src}/_source/pug/**/*.pug`, `!${src}/_source/pug/components/*`, `!${src}/_source/pug/layout/*`],
+        src:[`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
         dest:dest,
-        data:`${src}/_source/pug/data/`
+        data:`${src}/pug/data/`
     },
     compass: {
         development:{
-            src: `${src}/_source/sass/**/*.scss`,
+            src: `${src}/sass/**/*.scss`,
             dest: `${dest}/css`,
             options: {
-                import_path: [`${src}/_source/_function`],
-                sass: `${src}/_source/sass`,
+                import_path: [`_source/_function`],
+                sass: `${src}/sass`,
                 css: `${dest}/css`,
                 image: `${dest}/images`,
                 sourcemap: true
@@ -50,10 +55,31 @@ module.exports = {
                 cascade: true
             }
         },
-        production:{},
+        production:{
+          src: `${src}/sass/**/*.scss`,
+          dest: `${dest}/css`,
+          options: {
+              import_path: [`_source/_function`],
+              sass: `${src}/sass`,
+              css: `${dest}/css`,
+              image: `${dest}/images`
+          },
+          autoprefixer: {
+              browsers: [
+                  'last 2 versions',
+                  'safari 5',
+                  'ie 8',
+                  'ie 9',
+                  'opera 12.1',
+                  'ios 6',
+                  'android 4'
+              ],
+              cascade: true
+          }
+        }
     },
     sass: {
-        src: `${src}/_source/sass/**/*.scss`,
+        src: `${src}/sass/**/*.scss`,
         dest: `${dest}/css`,
         options:{
            outputStyle: 'compact'//nested expanded compact compressed
@@ -99,8 +125,8 @@ module.exports = {
             `${dest}/css/**/*.css`,
             `${dest}/js/**/*`
         ],
-        sass: `${sass}/sass/**/*.scss`,
-        pug:`${src}/_source/pug/**/*.pug`,
+        sass: `${src}/sass/**/*.scss`,
+        pug:`${src}/pug/**/*.pug`,
         images:`${src}/images/**/*.{jpg,jpeg,png,gif}`,
         scripts: `${src}/js/**/*.js`
     },

@@ -21,3 +21,15 @@ gulp.task('compass', (callback) => {
         .pipe(gulp.dest(config.development.dest));
         callback();
 });
+
+gulp.task('compass:build', (callback) => {
+    gulp.src(config.production.src)
+        .pipe($.plumber())
+        .pipe($.compass(config.production.options))
+        .pipe($.autoprefixer(config.production.autoprefixer))
+        .pipe(cleancss({
+            compatibility: 'ie8'
+        }))
+        .pipe(gulp.dest(config.production.dest));
+        callback();
+});
