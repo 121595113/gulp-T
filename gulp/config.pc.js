@@ -7,7 +7,7 @@ module.exports = {
             notify: false,
             port: 9000,
             server: {
-                baseDir: [dest],
+                baseDir: [src, dest],
                 index: 'index.html',
                 routes: {
                     // '/bower_components': 'bower_components'

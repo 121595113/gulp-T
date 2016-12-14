@@ -23,7 +23,7 @@ gulp.task('compass', (callback) => {
         callback();
 });
 
-gulp.task('compass:build', (callback) => {
+gulp.task('compass:build', () => {
     gulp.src(config.production.src)
         .pipe($.plumber())
         .pipe($.compass(config.production.options))
