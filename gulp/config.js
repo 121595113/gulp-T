@@ -1,5 +1,6 @@
 const src = 'app';
 const dest = 'dist';
+const sass = `${src}/_source`;
 const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
 module.exports = {
     browsersync: {
@@ -17,19 +18,13 @@ module.exports = {
             open: 'ui' // local, external, ui, ui-external, tunnel or false
         }
     },
-    copy: {
-        pic:{
-            src: `${src}/pic/**/*`,
-            dest: `${dest}/pic/`
-        }
-    },
     delete: {
         src: [dest]
     },
     pug:{
-        src:[`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
+        src:[`${src}/_source/pug/**/*.pug`, `!${src}/_source/pug/components/*`, `!${src}/_source/pug/layout/*`],
         dest:dest,
-        data:`${src}/pug/data/`
+        data:`${src}/_source/pug/data/`
     },
     compass: {
         development:{
@@ -83,7 +78,7 @@ module.exports = {
         }
     },
     sass: {
-        src: `${src}/sass/**/*.scss`,
+        src: `${src}/_source/sass/**/*.scss`,
         dest: `${dest}/css`,
         options:{
            outputStyle: 'compact'//nested expanded compact compressed
@@ -129,8 +124,8 @@ module.exports = {
             `${dest}/css/**/*.css`, // 如果用compass编译sass这里的dest改成src
             `${dest}/js/**/*`
         ],
-        sass: `${src}/sass/**/*.scss`,
-        pug:`${src}/pug/**/*.pug`,
+        sass: `${sass}/sass/**/*.scss`,
+        pug:`${src}/_source/pug/**/*.pug`,
         images:`${src}/images/**/*.{jpg,jpeg,png,gif}`,
         scripts: `${src}/js/**/*.js`
     },
