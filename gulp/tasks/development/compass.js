@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 const $ = require('gulp-load-plugins')();
+import cleancss from 'gulp-clean-css';
 
 import fs from 'fs';
 const project = require('../../lib/project')();
@@ -31,5 +32,4 @@ gulp.task('compass:build', (callback) => {
             compatibility: 'ie8'
         }))
         .pipe(gulp.dest(config.production.dest));
-        callback();
 });

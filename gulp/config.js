@@ -44,7 +44,9 @@ module.exports = {
             },
             autoprefixer: {
                 browsers: [
-                    'last 2 versions',
+                    '> 1% in CN',
+                    'last 10 versions',
+                    'Firefox ESR',
                     'safari 5',
                     'ie 8',
                     'ie 9',
@@ -66,7 +68,9 @@ module.exports = {
           },
           autoprefixer: {
               browsers: [
-                  'last 2 versions',
+                  '> 1% in CN',
+                  'last 10 versions',
+                  'Firefox ESR',
                   'safari 5',
                   'ie 8',
                   'ie 9',
