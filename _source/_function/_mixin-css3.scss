@@ -1,30 +1,45 @@
 @charset "utf-8";
 //背景色透明
 @mixin opacityColor($color, $trans) {
-    $rgba: rgba($color, $trans);
-    background: $rgba;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="#{ie-hex-str($rgba)}", EndColorStr="#{ie-hex-str($rgba)}");
-    .ie9 & {
-        filter: none;
-    }
+  $rgba: rgba($color, $trans);
+  background: $rgba;
+  *filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="#{ie-hex-str($rgba)}", EndColorStr="#{ie-hex-str($rgba)}");
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="#{ie-hex-str($rgba)}", EndColorStr="#{ie-hex-str($rgba)}");
+}
+
+@mixin ellipsis() {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 //png24
 @mixin opacityImage($path) {
-    _background: none;
-    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src="#{$path}");
+  _background: none;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src="#{$path}");
+}
+
+@mixin opacity($opacity) {
+  @if $opacity==1 {
+    filter: unquote("progid:DXImageTransform.Microsoft.Alpha(enabled=false)");
+  }
+  @else {
+    *filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+    -ms-filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+  }
+  opacity: $opacity;
 }
 
 //IE6下用gif背景图片
 @mixin opacityGif($path) {
-    _background-image: url("#{$path}");
+  _background-image: url("#{$path}");
 }
 
 //背景图片拉伸
 @mixin stretchedImage($path) {
-    background-size: 100% 100%;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{$path}", sizingMethod="scale");
-    -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{$path}", sizingMethod="scale");
+  background-size: 100% 100%;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{$path}", sizingMethod="scale");
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{$path}", sizingMethod="scale");
 }
 
 // 三角形
@@ -56,9 +71,9 @@
 }
 
 
-@mixin _border-width() {
+@mixin _hairline($el) {
     position: relative;
-    &:after {
+    &:#{$el} {
         content: "";
         position: absolute;
         top: 0;
@@ -66,14 +81,14 @@
         width: 200%;
         height: 200%;
         box-sizing: border-box;
-        transform: scale(.5);
+        transform: scale3d(.5,.5,.5);
         transform-origin: 0 0;
         @content;
     }
 }
 // 1px边框线
-@mixin border-width($width:0px 0px 0px 0px, $radius:null, $color:null, $style:solid) {
-    @include _border-width() {
+@mixin hairline($width:0px 0px 0px 0px, $radius:null, $color:null, $style:solid ,$el:after) {
+    @include _hairline($el) {
         @if $width !=null {
             border-width: $width;
             @if $color !=null {

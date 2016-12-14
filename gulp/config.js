@@ -7,7 +7,7 @@ module.exports = {
             notify: false,
             port: 9000,
             server: {
-                baseDir: [dest],
+                baseDir: [src, dest],
                 index: 'index.html',
                 routes: {
                     // '/bower_components': 'bower_components'
@@ -34,17 +34,19 @@ module.exports = {
     compass: {
         development:{
             src: `${src}/sass/**/*.scss`,
-            dest: `${dest}/css`,
+            dest: `${src}/css`,
             options: {
                 import_path: [`_source/_function`],
                 sass: `${src}/sass`,
-                css: `${dest}/css`,
-                image: `${dest}/images`,
+                css: `${src}/css`,
+                image: `${src}/images`,
                 sourcemap: true
             },
             autoprefixer: {
                 browsers: [
-                    'last 2 versions',
+                    '> 1% in CN',
+                    'last 10 versions',
+                    'Firefox ESR',
                     'safari 5',
                     'ie 8',
                     'ie 9',
@@ -66,7 +68,9 @@ module.exports = {
           },
           autoprefixer: {
               browsers: [
-                  'last 2 versions',
+                  '> 1% in CN',
+                  'last 10 versions',
+                  'Firefox ESR',
                   'safari 5',
                   'ie 8',
                   'ie 9',
@@ -121,8 +125,8 @@ module.exports = {
     watch: {
         changes:[
             `${dest}/**/*.html`,
-            `${dest}/images/**/*`,
-            `${dest}/css/**/*.css`,
+            `${dest}/images/**/*`, // 如果用compass编译sass这里的dest改成src
+            `${dest}/css/**/*.css`, // 如果用compass编译sass这里的dest改成src
             `${dest}/js/**/*`
         ],
         sass: `${src}/sass/**/*.scss`,
