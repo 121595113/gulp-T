@@ -57,7 +57,7 @@ gulp sass --app
 <!-- 生产模式 -->
 gulp sass:build --app
 ```
-#### 5、javascript压缩
+#### 5、javascript压缩（支持es6语法）
 ```
 gulp scripts --app
 ```

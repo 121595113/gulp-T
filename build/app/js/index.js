@@ -1,1 +1,2 @@
-console.log(222),console.log(999);
+"use strict";for(var i=0;i<10;i++)console.log(i);
+//# sourceMappingURL=.map/index.js.map

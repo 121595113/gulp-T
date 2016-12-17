@@ -37,6 +37,6 @@ gulp.task('app:build', gulpSequence(
     'imagemin', [
         'pug',
         'sass:build',
-        'scripts'
+        'scripts:build'
     ]
 ));
