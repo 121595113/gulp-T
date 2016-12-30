@@ -13,6 +13,8 @@ module.exports = {
                     // '/bower_components': 'bower_components'
                 }
             },
+            // proxy: "http://172.16.13.22:812", //后端服务器地址
+            // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
             browser: [BS],
             open: 'ui' // local, external, ui, ui-external, tunnel or false
         }
