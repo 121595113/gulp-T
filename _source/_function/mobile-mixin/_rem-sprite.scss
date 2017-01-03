@@ -37,12 +37,12 @@
 }
 
 
-/*
-The `sprites` mixin generates identical output to the CSS template
-  but can be overridden inside of SCSS
+// /*
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
 
-@include sprites($spritesheet-sprites);
-*/
+// @include sprites($spritesheet-sprites);
+// */
 
 @mixin rem-sprites($sprites, $rem-base:$rem-base, $separator:'-', $pre-name:null, $repeat:true, $expand:false) {
     @if $pre-name==null {
