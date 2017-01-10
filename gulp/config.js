@@ -1,5 +1,6 @@
-const src = 'app';
-const dest = 'dist';
+const project = 'app';
+const src = `src/${project}`;
+const dest = `build/${project}`;
 const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
 module.exports = {
     browsersync: {
@@ -142,5 +143,10 @@ module.exports = {
             css: src + '/_source/sass/sprites/',
             image: src + '/images/'
         }
+    },
+    zip: {
+        src: `${dest}/**/*`,
+        filename: project,
+        dest: 'build'
     }
 };
