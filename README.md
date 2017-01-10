@@ -65,6 +65,11 @@ gulp scripts --app
 ```
 gulp imagemin --app
 ```
+
+#### 7、zip压缩(支持md5命名)
+```
+gulp zip --app
+```
 ### 五、技术详解
 #### 1、gulp入口文件不处理任务逻辑
 不要将所有任务的逻辑全部放到gulp入口文件中，那样的话，随着项目变得复杂，gulp入口文件将变得无法维护
@@ -103,23 +108,24 @@ gulp.task('sass:build', () => {
 将项目的配置文件抽离到'gulp/config.xxx.js'中，方便统一管理、配置。
 ```javascript
 // config.app.js
-const src = 'src/app';
-const dest = 'build/app';
-const sass = `${src}`;
+const project = 'app';
+const src = `src/${project}`;
+const dest = `build/${project}`;
 const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
-
 module.exports = {
     browsersync: {
         development: {
             notify: false,
             port: 8000,
             server: {
-                baseDir: [dest],
+                baseDir: [src, dest],
                 index: 'index.html',
                 routes: {
                     // '/bower_components': 'bower_components'
                 }
             },
+            // proxy: "http://172.16.13.22:812", //后端服务器地址
+            // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
             browser: [BS],
             open: 'external' // local, external, ui, ui-external, tunnel or false
         }
@@ -127,16 +133,17 @@ module.exports = {
     delete: {
         src: [dest]
     },
-    pug:{
-		src:[`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
-		dest:dest,
-		data:`${src}/pug/data/`
+    pug: {
+        src: [`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
+        dest: dest,
+        data: `${src}/pug/data/`,
+        charset:'utf-8'
     },
     sass: {
         src: `${src}/sass/**/*.scss`,
         dest: `${dest}/css`,
-        options:{
-            outputStyle: 'expanded'//nested expanded compact compressed
+        options: {
+            outputStyle: 'expanded' //nested expanded compact compressed
         },
         autoprefixer: {
             browsers: [
@@ -151,7 +158,7 @@ module.exports = {
                 'android 4'
             ]
         },
-        base64:{
+        base64: {
             baseDir: `${dest}/css`,
             extensions: ['svg', 'png', /\.jpg#datauri$/i],
             exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
@@ -159,25 +166,29 @@ module.exports = {
         }
     },
     imagemin: {
-        src: `${src}/images/**/*`,
-        dest: `${dest}/images/`,
-        srcico:`${src}/*.{ico,png}`,
-        destico:`${dest}/`
+        images: {
+            src: `${src}/images/**/*`,
+            dest: `${dest}/images/`
+        },
+        ico: {
+            src: `${src}/*.{ico,png}`,
+            dest: `${dest}/`
+        }
     },
-    uglify:{
-    	src:`${src}/js/**/*.js`,
-    	dest:`${dest}/js/`
+    uglify: {
+        src: `${src}/js/**/*.js`,
+        dest: `${dest}/js/`
     },
     watch: {
-    	changes:[
-	    	`${dest}/**/*.html`,
-	    	`${dest}/images/**/*`,
-	    	`${dest}/css/**/*.css`,
-	    	`${dest}/js/**/*`
-    	],
-        sass: `${sass}/sass/**/*.scss`,
-        pug:`${src}/pug/**/*.pug`,
-        images:`${src}/images/**/*.{jpg,jpeg,png,gif}`,
+        changes: [
+            `${dest}/**/*.html`,
+            `${dest}/images/**/*`,
+            `${dest}/css/**/*.css`,
+            `${dest}/js/**/*`
+        ],
+        sass: `${src}/sass/**/*.scss`,
+        pug: `${src}/pug/**/*.pug`,
+        images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
         scripts: `${src}/js/**/*.js`
     },
     sprites: {
@@ -186,6 +197,11 @@ module.exports = {
             css: src + '/sass/sprites/',
             image: src + '/images/'
         }
+    },
+    zip: {
+        src: `${dest}/**/*`,
+        filename: project,
+        dest: 'build'
     }
 };
 ```
@@ -304,7 +320,8 @@ gulp.task('app:build', gulpSequence(
         'pug',
         'sass:build',
         'scripts'
-    ]
+    ],
+    'zip'
 ));
 ```
 
