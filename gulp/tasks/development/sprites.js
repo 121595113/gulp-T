@@ -34,7 +34,7 @@ gulp.task('sprites', () => {
                     },
                     cssTemplate: path.resolve('./gulp/lib/handlebarsInheritance.scss.handlebars'),
                     imgName: `${item}-sprite.png`,
-                    imgPath: `../images/${item}-sprite.png`
+                    imgPath: `../images/${item}-sprite.png?${new Date().valueOf()}`
                 }));
 
             imgStreams[item].img
