@@ -30,7 +30,7 @@ module.exports = {
         src: [dest]
     },
     pug:{
-        src:[`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
+        src:[`${src}/pug/**/*.pug`, `!${src}/pug/components/**/*`, `!${src}/pug/layout/**/*`],
         dest:dest,
         data:`${src}/pug/data/`
     },
