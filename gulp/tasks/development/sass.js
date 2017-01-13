@@ -35,6 +35,9 @@ gulp.task('sass:build', () => {
                 compatibility: 'ie8'
             }))
             .pipe($.base64(config.base64))
+            .pipe(cleancss({
+                compatibility: 'ie8'
+            }))
             .pipe(gulp.dest(config.dest))
     } else {
         return gulp.src(config.src)
