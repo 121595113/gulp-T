@@ -42,6 +42,17 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$path}', sizingMethod='scale')";
 }
 
+@mixin rotate($degrees) {
+    zoom: 1;
+    filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
+    -moz-transform: rotate($degrees);
+    -o-transform: rotate($degrees);
+    -webkit-transform: rotate($degrees);
+    -ms-transform: rotate($degrees);
+    transform: rotate($degrees);
+}
+
 // 三角形
 @mixin triangle($direction, $size, $borderColor ) {
   content:"";
