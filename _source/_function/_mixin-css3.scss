@@ -4,7 +4,7 @@
   $rgba: rgba($color, $trans);
   background: $rgba;
   *filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="#{ie-hex-str($rgba)}", EndColorStr="#{ie-hex-str($rgba)}");
-  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="#{ie-hex-str($rgba)}", EndColorStr="#{ie-hex-str($rgba)}");
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#{ie-hex-str($rgba)}', EndColorStr='#{ie-hex-str($rgba)}')";
 }
 
 @mixin ellipsis() {
@@ -25,7 +25,7 @@
   }
   @else {
     *filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
-    -ms-filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})";
   }
   opacity: $opacity;
 }
@@ -39,7 +39,7 @@
 @mixin stretchedImage($path) {
   background-size: 100% 100%;
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{$path}", sizingMethod="scale");
-  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{$path}", sizingMethod="scale");
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$path}', sizingMethod='scale')";
 }
 
 // 三角形
@@ -166,4 +166,12 @@
         @include flexbox((box-pack: justify), 1);
     }
     @include flexbox((justify-content: $justify-content));
+}
+
+@mixin text-overflows($line:2){
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
 }
