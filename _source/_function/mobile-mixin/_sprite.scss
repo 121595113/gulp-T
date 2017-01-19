@@ -12,34 +12,50 @@
     background-position: $sprite-offset-x $sprite-offset-y;
 }
 
-@mixin sprite-image($sprite) {
+@mixin sprite-image($sprite,$retina:false) {
     $sprite-image: nth($sprite, 9);
     background-image: url(#{$sprite-image});
+    @if  nth($sprite, 12) != '' and $retina == true {
+        background-image: -webkit-image-set(url(#{nth($sprite, 9)}) 1x,url(#{nth($sprite, 12)}) 2x);
+    }
 }
 
-@mixin sprite($sprite) {
-    @include sprite-image($sprite);
+@mixin sprite($sprite, $repeat:true, $expand:false,$retina:false) {
+    @if $expand == false {
+        @include sprite-image($sprite,$retina);
+    }
     @include sprite-position($sprite);
     @include sprite-width($sprite);
     @include sprite-height($sprite);
+    @if $repeat==true and $expand == false{
+        background-repeat: no-repeat;
+    }
 }
 
 
-// /*
-// The `sprites` mixin generates identical output to the CSS template
-//   but can be overridden inside of SCSS
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
 
-// @include sprites($spritesheet-sprites);
-// */
+@include sprites($spritesheet-sprites);
+*/
 
-@mixin sprites($sprites, $separator:'-', $pre-name:null) {
+@mixin sprites($sprites, $separator:'-', $pre-name:null, $repeat:true, $expand:false,$retina:false) {
     @if $pre-name==null {
         $pre-name: nth(nth($sprites, 1), 11);
+    }
+    @if $expand == true {
+        .#{$pre-name+$separator}sprites{
+            @include sprite-image(nth($sprites, 1),$retina);
+            @if $repeat == true {
+                background-repeat: no-repeat;
+            }
+        }
     }
     @each $sprite in $sprites {
         $sprite-name: nth($sprite, 10);
         .#{$pre-name + $separator + $sprite-name} {
-            @include sprite($sprite);
+            @include sprite($sprite, $repeat, $expand,$retina);
         }
     }
 }

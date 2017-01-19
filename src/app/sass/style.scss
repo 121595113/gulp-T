@@ -1,6 +1,6 @@
 $rem-base:720;// 计算rem的基数，默认16根据字体大小，当值超过320的将根据设计稿宽度
-$reset:true;// 是否将浏览器默认样式重置，默认为false
-$Response:true;// 是否使用自适应系统，默认为false
+$reset:false;// 是否将浏览器默认样式重置，默认为false
+$Response:false;// 是否使用自适应系统，默认为false
 $mediaArrays:(320 375 400 480 640 720);// 当$Response为true的时候设置适配的手机尺寸，默认值为320 360 375 400 480 540 640 720
 
 @import "../../../_source/_function/mobile-mixin";
@@ -11,7 +11,7 @@ $mediaArrays:(320 375 400 480 640 720);// 当$Response为true的时候设置适�
 
 body{
 	display: flex;
-	background: red;
+	background: yellow;
 }
 
 .div1{
@@ -20,7 +20,7 @@ body{
 }
 
 // 引用全部合图
-@include rem-sprites($cur-sprites,$pre-name:'demo',$separator:'__');
+@include sprites($cur-sprites,$pre-name:'demo',$separator:'__',$retina:true);
 
 
 h1{
