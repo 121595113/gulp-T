@@ -49,6 +49,7 @@ gulp clean --app
 ```
 gulp pug --app
 ```
+**支持gbk编码请参考[gulp-gbk分支](https://github.com/121595113/gulp-T/tree/gulp-gbk)**
 #### 4、css样式编译
 ```
 <!-- 开发模式 -->
