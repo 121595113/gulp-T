@@ -20,7 +20,7 @@ body{
 }
 
 // 引用全部合图
-@include sprites($cur-sprites,$pre-name:'demo',$separator:'__',$retina:true);
+@include sprites($cur-sprites,$pre-name:'demo',$separator:'__',$expand:true,$retina:true);
 
 
 h1{

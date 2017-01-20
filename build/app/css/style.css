@@ -1,187 +1,19 @@
-html {
-  overflow-y: scroll;
-  -webkit-text-size-adjust: 100%;
-}
-
-html * {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html, body {
-  font-family: sans-serif;
-}
-
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  margin: 0;
-  padding: 0;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-caption, th {
-  text-align: left;
-}
-
-fieldset, img {
-  border: 0;
-}
-
-em, i, strong {
-  font-style: normal;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-size: 100%;
-  font-weight: normal;
-}
-
-ul, ol {
-  list-style: none;
-}
-
-del {
-  text-decoration: line-through;
-}
-
-input, button, textarea, select {
-  font-size: 100%;
-  border: none;
-  background: none;
-  -webkit-appearance: none;
-}
-
-a, button, input, select, textarea, a:focus, button:focus, input:focus, select:focus, textarea:focus {
-  outline: 0 none;
-}
-
-a {
-  text-decoration: none;
-  color: #666;
-}
-
-.clearfix:before, .clearfix:after {
-  content: "";
-  display: table;
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-::-webkit-input-placeholder {
-  color: #999;
-}
-
-::-moz-placeholder {
-  color: #999;
-}
-
-:-moz-placeholder {
-  color: #999;
-}
-
-@media only screen and (max-width: 374px) {
-  html {
-    font-size: 12px;
-  }
-}
-
-@media only screen and (min-width: 375px) and (max-width: 399px) {
-  html {
-    font-size: 14.0625px;
-  }
-}
-
-@media only screen and (min-width: 400px) and (max-width: 479px) {
-  html {
-    font-size: 15px;
-  }
-}
-
-@media only screen and (min-width: 480px) and (max-width: 639px) {
-  html {
-    font-size: 18px;
-  }
-}
-
-@media only screen and (min-width: 640px) and (max-width: 719px) {
-  html {
-    font-size: 24px;
-  }
-}
-
-@media only screen and (min-width: 720px) {
-  html {
-    font-size: 27px;
-  }
-}
-
 /*
 The `sprites` mixin generates identical output to the CSS template
   but can be overridden inside of SCSS
 
 @include sprites($spritesheet-sprites);
-*/
-/*
-The `sprites` mixin generates identical output to the CSS template
-  but can be overridden inside of SCSS
-
-@include sprites($spritesheet-sprites);
-*/
-/*
-SCSS variables are information about icon's compiled state, stored under its original file name
-
-.icon-home {
-  width: $icon-home-width;
-}
-
-The large array-like variables contain all information about a single icon
-$icon-home: x y offset_x offset_y width height total_width total_height image_path;
-
-At the bottom of this section, we provide information about the spritesheet itself
-$spritesheet: width height image $spritesheet-sprites;
-*/
-/*
-SCSS variables are information about icon's compiled state, stored under its original file name
-
-.icon-home {
-  width: $icon-home-width;
-}
-
-The large array-like variables contain all information about a single icon
-$icon-home: x y offset_x offset_y width height total_width total_height image_path;
-
-At the bottom of this section, we provide information about the spritesheet itself
-$spritesheet: width height image $spritesheet-sprites;
-*/
-/*
-SCSS variables are information about icon's compiled state, stored under its original file name
-
-.icon-home {
-  width: $icon-home-width;
-}
-
-The large array-like variables contain all information about a single icon
-$icon-home: x y offset_x offset_y width height total_width total_height image_path;
-
-At the bottom of this section, we provide information about the spritesheet itself
-$spritesheet: width height image $spritesheet-sprites;
 */
 body {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  background: red;
+  background: yellow;
 }
 
 .div1 {
-  background-image: url(../images/aqi-icon-sprite.png);
+  background-image: url(../images/aqi-icon-sprite.png?1484875398155);
   background-size: 3.85185rem 3.85185rem;
   background-position: 50% 0%;
   width: 1.18519rem;
@@ -189,67 +21,52 @@ body {
   background-repeat: no-repeat;
 }
 
-.demo__lv2 {
-  background-image: url(../images/cur-sprite.png);
-  background-size: 11.7037rem 6.66667rem;
-  background-position: 0% 0%;
-  width: 2.81481rem;
-  height: 3.25926rem;
+.demo__sprites {
+  background-image: url(../images/cur-sprite.png?1484875398201);
+  background-image: -webkit-image-set(url(../images/cur-sprite.png?1484875398201) 1x, url(../images/cur-sprite@2x.png?1484875398201) 2x);
   background-repeat: no-repeat;
+}
+
+.demo__lv2 {
+  background-position: 0px 0px;
+  width: 76px;
+  height: 88px;
 }
 
 .demo__lv3 {
-  background-image: url(../images/cur-sprite.png);
-  background-size: 11.7037rem 6.66667rem;
-  background-position: 33.33333% 0%;
-  width: 2.81481rem;
-  height: 3.25926rem;
-  background-repeat: no-repeat;
+  background-position: -80px 0px;
+  width: 76px;
+  height: 88px;
 }
 
 .demo__lv4 {
-  background-image: url(../images/cur-sprite.png);
-  background-size: 11.7037rem 6.66667rem;
-  background-position: 66.66667% 0%;
-  width: 2.81481rem;
-  height: 3.25926rem;
-  background-repeat: no-repeat;
+  background-position: -160px 0px;
+  width: 76px;
+  height: 88px;
 }
 
 .demo__lv5 {
-  background-image: url(../images/cur-sprite.png);
-  background-size: 11.7037rem 6.66667rem;
-  background-position: 0% 100%;
-  width: 2.81481rem;
-  height: 3.25926rem;
-  background-repeat: no-repeat;
+  background-position: 0px -92px;
+  width: 76px;
+  height: 88px;
 }
 
 .demo__lv6 {
-  background-image: url(../images/cur-sprite.png);
-  background-size: 11.7037rem 6.66667rem;
-  background-position: 33.33333% 100%;
-  width: 2.81481rem;
-  height: 3.25926rem;
-  background-repeat: no-repeat;
+  background-position: -80px -92px;
+  width: 76px;
+  height: 88px;
 }
 
 .demo__lv7:active {
-  background-image: url(../images/cur-sprite.png);
-  background-size: 11.7037rem 6.66667rem;
-  background-position: 66.66667% 100%;
-  width: 2.81481rem;
-  height: 3.25926rem;
-  background-repeat: no-repeat;
+  background-position: -160px -92px;
+  width: 76px;
+  height: 88px;
 }
 
 .demo__lv7 {
-  background-image: url(../images/cur-sprite.png);
-  background-size: 11.7037rem 6.66667rem;
-  background-position: 100% 0%;
-  width: 2.81481rem;
-  height: 3.25926rem;
-  background-repeat: no-repeat;
+  background-position: -240px 0px;
+  width: 76px;
+  height: 88px;
 }
 
 h1 {

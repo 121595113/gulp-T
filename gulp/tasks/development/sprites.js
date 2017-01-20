@@ -72,7 +72,7 @@ gulp.task('sprites', () => {
                 .pipe(gulp.dest(config.dest.image));
 
             imgStreams[item].css
-                .pipe($.replace(/\/\*[^]*\*\/\n/mg, ''))
+                .pipe($.replace(/(\/\/.*\n)|^\n|(\/\*[\s\S]*\*\/\n)/mg, ''))
                 .pipe($.replace(/('\b.*)-(active'|hover')/g, '$1:$2'))
                 .pipe(gulp.dest(config.dest.css));
         });
