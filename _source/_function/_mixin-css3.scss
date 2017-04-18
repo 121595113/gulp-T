@@ -179,10 +179,15 @@
     @include flexbox((justify-content: $justify-content));
 }
 
-@mixin text-overflows($line:2){
-    overflow: hidden;
-    text-overflow: ellipsis;
+@mixin text-overflows($line:null){
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @if $line == null {
+    white-space: nowrap;
+  } @else {
     display: -webkit-box;
     -webkit-line-clamp: $line;
     -webkit-box-orient: vertical;
+  }
 }
