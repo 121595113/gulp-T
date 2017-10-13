@@ -1,34 +1,49 @@
 # gulp-T 多项目管理
+
 Long, long ago... Gulp都是一堆依赖包只针对一个项目，很（kao）难（bei）一个gulp配置文件用在多个项目。本项目就是为了解决这个痛点而整合出来的。其中融入了作者大量的心血（Holidays），可谓扩展性高、配置文件复用强、配置简单的gulp使用案例。默认已配置了一些好用的task。其中最好用的莫过于精灵合图了，支持同时合成多张图片；轻松完成`hover`、`active`状态的使用；移动端支持以rem方式的引用，`background-position`采用百分比的方式，定位更加精准。其它有，样式中图片引用按需转成base64，pug编译实现结构与数据分离...
 
 ## 下载
-```
+
+```bash
 git clone https://github.com/121595113/gulp-T.git
 ```
+
 ## 使用方法
 
 ### 一、安装依赖包
-```
+
+```bash
 npm install
 ```
+
 ### 二、开发模式
-*如无特殊说明以下都以app项目为例*
-```
+
+_如无特殊说明以下都以app项目为例_
+
+```bash
 gulp app --app // 其中‘-app’为项目读取配置文件所需参数名，配置文件路径'gulp/config.app.js'
 ```
+
 ### 三、生产模式
-```
+
+```bash
 gulp app:build --app
 ```
+
 ### 四、使用细节
+
 #### 1、合图(支持@2x合成两倍图片)
-```
+
+```bash
 gulp sprites -s 文件夹名1,文件夹名2,文件夹名3,文件夹名4 --app
 ```
+
 同时合图支持自定义`layout`，在命令行添加参数`-L`，空格后跟上要合成的方式，如：
-```
+
+```bash
 gulp sprites -s 文件夹名 -L top-down --app
 ```
+
 可选参数见下表（[来源gulp.spritesmith官网](https://www.npmjs.com/package/gulp.spritesmith#algorithms)）,默认`binary-tree`
 
 |         `top-down`        |          `left-right`         |         `diagonal`        |           `alt-diagonal`          |          `binary-tree`          |
@@ -41,39 +56,55 @@ gulp sprites -s 文件夹名 -L top-down --app
 [alt-diagonal-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/alt-diagonal.png
 [binary-tree-img]: https://raw.githubusercontent.com/twolfson/layout/2.0.2/docs/binary-tree.png
 关于合图后的图片引用参考[sass中如何使用合图？](#user-content-7样式中如何使用合图)
+
 #### 2、清理
-```
+
+```bash
 gulp clean --app
 ```
+
 #### 3、html模板引擎`pug`(原jade)
-```
+
+```bash
 gulp pug --app
 ```
+
 **支持gbk编码请参考[gulp-gbk分支](https://github.com/121595113/gulp-T/tree/gulp-gbk)**
+
 #### 4、css样式编译
-```
+
+```bash
 <!-- 开发模式 -->
 gulp sass --app
 
 <!-- 生产模式 -->
 gulp sass:build --app
 ```
+
 #### 5、javascript压缩（支持es6语法）
-```
+
+```bash
 gulp scripts --app
 ```
+
 #### 6、图片压缩
-```
+
+```bash
 gulp imagemin --app
 ```
 
 #### 7、zip压缩(支持md5命名)
-```
+
+```bash
 gulp zip --app
 ```
+
 ### 五、技术详解
+
 #### 1、gulp入口文件不处理任务逻辑
+
 不要将所有任务的逻辑全部放到gulp入口文件中，那样的话，随着项目变得复杂，gulp入口文件将变得无法维护
+
 ```javascript
 'use strict';
 import requireDir from 'require-dir';
@@ -81,8 +112,11 @@ import requireDir from 'require-dir';
 // 递归引入gulp/tasks目录下的文件
 requireDir('./gulp/tasks', { recurse: true });
 ```
+
 #### 2、拆分子任务
+
 将子任务拆分到单独的文件中，这样可以提高子任务的复用度，如sass任务：
+
 ```javascript
 import gulp from 'gulp';
 const $ = require('gulp-load-plugins')();
@@ -105,8 +139,11 @@ gulp.task('sass:build', () => {
     // 具体内容...
 });
 ```
+
 #### 3、项目的配置文件
+
 将项目的配置文件抽离到'gulp/config.xxx.js'中，方便统一管理、配置。
+
 ```javascript
 // config.app.js
 const project = 'app';
@@ -206,11 +243,14 @@ module.exports = {
     }
 };
 ```
+
 ```javascript
 // 子任务文件，通过下列方式一如配置文件
 let config = require('../../config.xxx');
 ```
+
 #### 4、抽离工具函数，放到单独的目录
+
 ```javascript
 import notify from "gulp-notify";
 
@@ -228,7 +268,9 @@ module.exports = function() {
   this.emit('end');
 };
 ```
+
 #### 5、如何设计普通的子任务（以sass为例）
+
 ```javascript
 import gulp from 'gulp';
 const $ = require('gulp-load-plugins')();// 按需引入package.json中的依赖包（推荐方式，可以解决沉余文件引起的报错）
@@ -277,8 +319,11 @@ gulp.task('sass:build', () => {
     }
 });
 ```
+
 注：以上任务遵循就近原则，把相关的任务写在一起。这样任务一目了然，维护方便
+
 #### 6、如何设计综合任务
+
 ```javascript
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
@@ -327,7 +372,9 @@ gulp.task('app:build', gulpSequence(
 ```
 
 #### 7、sass中如何使用合图？
+
 由于合图任务不是高频操作的任务，所以把它独立出来显得尤为重要。合图任务会在当前项目`'sass/sprites/'`文件夹下生成对应的配置文件，如果涉及到添加、删除、修改图片的情况，需要重新生成。合图的使用方法定义在`'_source/_function/'`中，使用的时候要像下面这样引用到scss样式中：
+
 ```scss
 // 1、首先引入调用所需的@mixin
 @import "../../../_source/_function/mobile-mixin";
@@ -375,6 +422,7 @@ div{
 */
 ```
 同时支持rem方式的调用，只要在方法前添加rem-前缀,内部调用了rem-calc()
+
 ```scss
 div{
   @include rem-sprite($cur-lv2);// 参数为$文件夹名-文件名
@@ -387,8 +435,11 @@ div{
 }
 @include rem-sprites($cur-sprites,$rem-base:720);// 带rem计算基数的,720是设计稿的尺寸
 ```
+
 #### 8、关于px转rem方式？
+
 rem的转换时通过@function rem-calc()转换的,使用方式如下
+
 ```scss
 div{
     width: rem-calc(100px);// px单位可以省略,建议一直省略
@@ -405,12 +456,17 @@ div{
     margin: rem-calc(10 20 auto 40,32);// 这里是根据字体大小32计算的
 }
 ```
+
 #### 9、关于移动适配的实现？
+
 适配的实现有好多种。有通过js控制的（[手淘方案](https://github.com/amfe/lib-flexible)），有通过css控制的，这里采用后者。使用方式如下
+
 ```scss
 $Response:true;// 在sass文件中将$Response设为true就开启了响应式
 ```
+
 默认适配手机尺寸列表：`$mediaArrays:(320 360 375 400 480 540 640 720) !default;`,你也可以自定义适配的手机尺寸
+
 ```scss
 $Response:true;
 $mediaArrays:(320 375 480 640 720);// 自定义适配手机尺寸
