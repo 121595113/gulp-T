@@ -1,4 +1,4 @@
-import notify from "gulp-notify";
+import notify from 'gulp-notify';
 
 module.exports = function() {
 
@@ -6,8 +6,8 @@ module.exports = function() {
 
   // Send error to notification center with gulp-notify
   notify.onError({
-    title: "Compile Error",
-    message: "<%= error.message %>"
+    title: 'Compile Error',
+    message: '<%= error.message %>'
   }).apply(this, args);
 
   // Keep gulp from hanging on this task

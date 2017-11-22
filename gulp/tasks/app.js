@@ -11,32 +11,32 @@ const reload = browserSync.reload;
  */
 
 gulp.task('app', (callback) => {
-    gulpSequence(
-        'delete',
-        'imagemin', [
-            'pug',
-            'sass',
-            'scripts'
-        ],
-        'browsersync',
-        'app:watch'
-    )(callback);
+  gulpSequence(
+    'delete',
+    'imagemin', [
+      'pug',
+      'sass',
+      'scripts'
+    ],
+    'browsersync',
+    'app:watch'
+  )(callback);
 });
 
 gulp.task('app:watch', () => {
-    gulp.watch(config.changes).on('change', reload).on('error', () => {});
+  gulp.watch(config.changes).on('change', reload).on('error', () => {});
 
-    gulp.watch(config.images, ['imagemin'])
-    gulp.watch(config.pug, ['pug'])
-    gulp.watch(config.sass, ['sass'])
-    gulp.watch(config.scripts, ['scripts'])
+  gulp.watch(config.images, ['imagemin']);
+  gulp.watch(config.pug, ['pug']);
+  gulp.watch(config.sass, ['sass']);
+  gulp.watch(config.scripts, ['scripts']);
 });
 
 gulp.task('app:build', gulpSequence(
-    'delete',
-    'imagemin', [
-        'pug',
-        'sass:build',
-        'scripts:build'
-    ]
+  'delete',
+  'imagemin', [
+    'pug',
+    'sass:build',
+    'scripts:build'
+  ]
 ));
