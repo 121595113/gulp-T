@@ -21,6 +21,7 @@ module.exports = {
     development: {
       notify: false,
       port: 8000,
+      // https: true,
       server: {
         baseDir: [src, dest],
         index: 'index.html',
