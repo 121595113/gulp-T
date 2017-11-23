@@ -1,3 +1,7 @@
-for(let i=0;i<10;i++){
-  console.log(i);
-}
+$(function () {
+  $.ajax('/api').then(function (data) {
+    console.log(data);
+  }).fail(function (e) {
+    console.error(e)
+  })
+});

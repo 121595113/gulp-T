@@ -2,6 +2,20 @@ const project = 'app';
 const src = `src/${project}`;
 const dest = `build/${project}`;
 const BS = process.platform === 'darwin' ? 'google chrome' : 'chrome';
+
+const proxy = require('http-proxy-middleware');
+// 设置代理
+const middleware = [
+  // proxy('/api', {
+  //   target: 'http://172.16.20.35:8080',
+  //   changeOrigin: true
+  // }),
+  // proxy('/otherServer', {
+  //   target: 'http://172.16.20.35:8080',
+  //   changeOrigin: true
+  // })
+];
+
 module.exports = {
   browsersync: {
     development: {
@@ -14,6 +28,7 @@ module.exports = {
           // '/bower_components': 'bower_components'
         }
       },
+      middleware: [...middleware],
       // proxy: 'http://172.16.13.22:812', //后端服务器地址
       // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
       browser: [BS],

@@ -1,6 +1,20 @@
 const src = 'src/pc';
 const dest = 'build/pc';
 const BS = process.platform === 'darwin' ? 'google chrome' : 'chrome';
+
+const proxy = require('http-proxy-middleware');
+// 设置代理
+const middleware = [
+  // proxy('/api', {
+  //   target: 'http://172.16.20.35:8080',
+  //   changeOrigin: true
+  // }),
+  // proxy('/otherServer', {
+  //   target: 'http://172.16.20.35:8080',
+  //   changeOrigin: true
+  // })
+];
+
 module.exports = {
   browsersync: {
     development: {
@@ -13,6 +27,7 @@ module.exports = {
           // '/bower_components': 'bower_components'
         }
       },
+      middleware: [...middleware],
       browser: [BS],
       open: 'external' // local, external, ui, ui-external, tunnel or false
     }
