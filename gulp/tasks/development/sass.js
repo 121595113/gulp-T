@@ -11,8 +11,8 @@ const handleErrors = require('../../lib/handleErrors');
 import fs from 'fs';
 const project = require('../../lib/project')();
 let config;
-if (fs.existsSync('./gulp/config' + project + '.js')) {
-  config = require('../../config' + project).sass;
+if (fs.existsSync(`./gulp/config${project}.js`)) {
+  config = require(`../../config${project}`).sass;
 }
 
 gulp.task('sass', () => {
@@ -26,27 +26,21 @@ gulp.task('sass', () => {
 });
 
 gulp.task('sass:build', () => {
+  let sassBuild$ = gulp.src(config.src)
+    .pipe($.plumber())
+    .pipe($.sass().on('error', handleErrors))
+    .pipe($.autoprefixer(config.autoprefixer))
+    .pipe(cleancss({
+      compatibility: 'ie8'
+    }));
+
   if (!!config.base64) {
-    return gulp.src(config.src)
-      .pipe($.plumber())
-      .pipe($.sass().on('error', handleErrors))
-      .pipe($.autoprefixer(config.autoprefixer))
-      .pipe(cleancss({
-        compatibility: 'ie8'
-      }))
+    sassBuild$ = sassBuild$
       .pipe($.base64(config.base64))
       .pipe(cleancss({
         compatibility: 'ie8'
-      }))
-      .pipe(gulp.dest(config.dest));
-  } else {
-    return gulp.src(config.src)
-      .pipe($.plumber())
-      .pipe($.sass().on('error', handleErrors))
-      .pipe($.autoprefixer(config.autoprefixer))
-      .pipe(cleancss({
-        compatibility: 'ie8'
-      }))
-      .pipe(gulp.dest(config.dest));
+      }));
   }
+
+  return sassBuild$.pipe(gulp.dest(config.dest));
 });

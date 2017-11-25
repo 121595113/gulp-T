@@ -9,7 +9,7 @@ const middleware = [
   //   target: 'http://172.16.20.35:8080',
   //   changeOrigin: true
   // }),
-  // proxy('/otherServer', {
+  // proxy(['/otherServer1', '/otherServer2'], {
   //   target: 'http://172.16.20.35:8080',
   //   changeOrigin: true
   // })

@@ -6,8 +6,8 @@ const $ = require('gulp-load-plugins')();
 import fs from 'fs';
 const project = require('../../lib/project')();
 let config;
-if (fs.existsSync('./gulp/config' + project + '.js')) {
-  config = require('../../config' + project).uglify;
+if (fs.existsSync(`./gulp/config${project}.js`)) {
+  config = require(`../../config${project}`).uglify;
 }
 
 gulp.task('scripts', () => {

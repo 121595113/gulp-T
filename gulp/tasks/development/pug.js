@@ -8,20 +8,17 @@ import path from 'path';
 import fs from 'fs';
 const project = require('../../lib/project')();
 let config;
-if (fs.existsSync('./gulp/config' + project + '.js')) {
-  config = require('../../config' + project).pug;
+if (fs.existsSync(`./gulp/config${project}.js`)) {
+  config = require(`../../config${project}`).pug;
 }
 
 gulp.task('pug', () => {
   return gulp.src(config.src)
     .pipe($.plumber())
     .pipe($.data(function(file) {
-      let pageData = './' + config.data + path.basename(file.path, '.pug') + '.json';
-      if (fs.existsSync(pageData)) {
-        return require('../../.' + pageData);
-      } else {
-        return require('../../../' + config.data + 'data.json');
-      }
+      let pageData = `./${config.data + path.basename(file.path, '.pug')}.json`;
+      let jsonData = fs.existsSync(pageData) ? `../../.${pageData}` : `../../../${config.data}data.json`;
+      return require(jsonData);
     }))
     .pipe($.pug({
       pretty: true
