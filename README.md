@@ -149,98 +149,114 @@ gulp.task('sass:build', () => {
 const project = 'app';
 const src = `src/${project}`;
 const dest = `build/${project}`;
-const BS = process.platform == 'darwin' ? "google chrome" : "chrome";
+const BS = process.platform === 'darwin' ? 'google chrome' : 'chrome';
+
+const proxy = require('http-proxy-middleware');
+// 设置代理
+const middleware = [
+  // proxy('/api', {
+  //   target: 'http://172.16.20.35:8080',
+  //   changeOrigin: true
+  // }),
+  // proxy(['/otherServer1', '/otherServer2'], {
+  //   target: 'http://172.16.20.35:8080',
+  //   changeOrigin: true
+  // })
+];
+
 module.exports = {
-    browsersync: {
-        development: {
-            notify: false,
-            port: 8000,
-            server: {
-                baseDir: [src, dest],
-                index: 'index.html',
-                routes: {
-                    // '/bower_components': 'bower_components'
-                }
-            },
-            // proxy: "http://172.16.13.22:812", //后端服务器地址
-            // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
-            browser: [BS],
-            open: 'external' // local, external, ui, ui-external, tunnel or false
+  browsersync: {
+    development: {
+      notify: false,
+      port: 8000,
+      // https: true,
+      server: {
+        baseDir: [src, dest],
+        index: 'index.html',
+        routes: {
+          // '/bower_components': 'bower_components'
         }
-    },
-    delete: {
-        src: [dest]
-    },
-    pug: {
-        src: [`${src}/pug/**/*.pug`, `!${src}/pug/components/*`, `!${src}/pug/layout/*`],
-        dest: dest,
-        data: `${src}/pug/data/`,
-        charset:'utf-8'
-    },
-    sass: {
-        src: `${src}/sass/**/*.scss`,
-        dest: `${dest}/css`,
-        options: {
-            outputStyle: 'expanded' //nested expanded compact compressed
-        },
-        autoprefixer: {
-            browsers: [
-                '> 1% in CN',
-                'last 10 versions',
-                'Firefox ESR',
-                'safari 5',
-                'ie 8',
-                'ie 9',
-                'opera 12.1',
-                'ios 6',
-                'android 4'
-            ]
-        },
-        base64: {
-            baseDir: `${dest}/css`,
-            extensions: ['svg', 'png', /\.jpg#datauri$/i],
-            exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
-            maxImageSize: 8 * 1024
-        }
-    },
-    imagemin: {
-        images: {
-            src: `${src}/images/**/*`,
-            dest: `${dest}/images/`
-        },
-        ico: {
-            src: `${src}/*.{ico,png}`,
-            dest: `${dest}/`
-        }
-    },
-    uglify: {
-        src: `${src}/js/**/*.js`,
-        dest: `${dest}/js/`
-    },
-    watch: {
-        changes: [
-            `${dest}/**/*.html`,
-            `${dest}/images/**/*`,
-            `${dest}/css/**/*.css`,
-            `${dest}/js/**/*`
-        ],
-        sass: `${src}/sass/**/*.scss`,
-        pug: `${src}/pug/**/*.pug`,
-        images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
-        scripts: `${src}/js/**/*.js`
-    },
-    sprites: {
-        src: src + '/images',
-        dest: {
-            css: src + '/sass/sprites/',
-            image: src + '/images/'
-        }
-    },
-    zip: {
-        src: `${dest}/**/*`,
-        filename: project,
-        dest: 'build'
+      },
+      middleware: [...middleware],
+      // proxy: 'http://172.16.13.22:812', //后端服务器地址
+      // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
+      browser: [BS],
+      open: 'external' // local, external, ui, ui-external, tunnel or false
     }
+  },
+  delete: {
+    src: [dest]
+  },
+  pug: {
+    src: [`${src}/pug/**/*.pug`, `!${src}/pug/components/**/*`, `!${src}/pug/layout/**/*`],
+    dest: dest,
+    data: `${src}/pug/data/`,
+    charset: 'utf-8'
+  },
+  sass: {
+    src: `${src}/sass/**/*.scss`,
+    dest: `${dest}/css`,
+    options: {
+      outputStyle: 'expanded' //nested expanded compact compressed
+    },
+    autoprefixer: {
+      browsers: [
+        '> 1% in CN',
+        'last 10 versions',
+        'Firefox ESR',
+        'safari 5',
+        'ie 8',
+        'ie 9',
+        'opera 12.1',
+        'ios 6',
+        'android 4'
+      ]
+    },
+    base64: {
+      baseDir: `${dest}/css`,
+      extensions: ['svg', 'png', /\.jpg#datauri$/i],
+      exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
+      maxImageSize: 8 * 1024
+    }
+  },
+  imagemin: {
+    images: {
+      src: `${src}/images/**/*`,
+      dest: `${dest}/images/`
+    },
+    ico: {
+      src: `${src}/*.{ico,png}`,
+      dest: `${dest}/`
+    }
+  },
+  uglify: {
+    src: `${src}/js/**/*.js`,
+    dest: `${dest}/js/`
+  },
+  watch: {
+    changes: [
+      `${dest}/**/*.html`,
+      `${dest}/images/**/*`,
+      `${dest}/css/**/*.css`,
+      `${dest}/js/**/*`
+    ],
+    sass: `${src}/sass/**/*.scss`,
+    pug: `${src}/pug/**/*.pug`,
+    images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
+    scripts: `${src}/js/**/*.js`
+  },
+  sprites: {
+    src: src + '/images',
+    dest: {
+      css: src + '/sass/sprites/',
+      image: src + '/images/'
+    }
+  },
+  zip: {
+    src: `${dest}/**/*`,
+    filename: project,
+    dest: 'build'
+  }
 };
 ```
 
@@ -281,8 +297,8 @@ import fs from 'fs';
 const project = require('../../lib/project')();// 解析、处理命令行配置参数
 let config;
 // 判断配置文件是否存在，存在就引入
-if (fs.existsSync('./gulp/config' + project + '.js')) {
-    config = require('../../config' + project).sass;
+if (fs.existsSync(`./gulp/config${project}.js`)) {
+    config = require(`../../config${project}`).sass;
 }
 // 开发模式
 gulp.task('sass', () => {
@@ -297,26 +313,23 @@ gulp.task('sass', () => {
 // 生产模式
 gulp.task('sass:build', () => {
   // 根据是否有base64配置项执行不同的任务
-    if (!!config.base64) {
-        return gulp.src(config.src)
-            .pipe($.plumber())
-            .pipe($.sass().on('error', handleErrors))
-            .pipe($.autoprefixer(config.autoprefixer))
-            .pipe(cleancss({
-                compatibility: 'ie8'
-            }))
-            .pipe($.base64(config.base64))
-            .pipe(gulp.dest(config.dest))
-    } else {
-        return gulp.src(config.src)
-            .pipe($.plumber())
-            .pipe($.sass().on('error', handleErrors))
-            .pipe($.autoprefixer(config.autoprefixer))
-            .pipe(cleancss({
-                compatibility: 'ie8'
-            }))
-            .pipe(gulp.dest(config.dest))
-    }
+   let sassBuild$ = gulp.src(config.src)
+    .pipe($.plumber())
+    .pipe($.sass().on('error', handleErrors))
+    .pipe($.autoprefixer(config.autoprefixer))
+    .pipe(cleancss({
+      compatibility: 'ie8'
+    }));
+
+  if (!!config.base64) {
+    sassBuild$ = sassBuild$
+      .pipe($.base64(config.base64))
+      .pipe(cleancss({
+        compatibility: 'ie8'
+      }));
+  }
+
+  return sassBuild$.pipe(gulp.dest(config.dest));
 });
 ```
 
@@ -330,7 +343,7 @@ import browserSync from 'browser-sync';
 import gulpSequence from 'gulp-sequence';// 可以让任务按顺序
 
 const project = require('../lib/project')();
-const config = require('../config' + project).watch;
+const config = require(`../config${project}`).watch;
 const reload = browserSync.reload;
 
 /**
