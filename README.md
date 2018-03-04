@@ -21,8 +21,10 @@ npm install
 _如无特殊说明以下都以app项目为例_
 
 ```bash
-gulp app --app // 其中‘-app’为项目读取配置文件所需参数名，配置文件路径'gulp/config.app.js'
+gulp app --app
 ```
+
+其中`gulp`为固定命令开始标志，`app`为任务名，`--app`为项目名。下同
 
 ### 三、生产模式
 
@@ -60,7 +62,7 @@ gulp sprites -s 文件夹名 -L top-down --app
 #### 2、清理
 
 ```bash
-gulp clean --app
+gulp delete --app
 ```
 
 #### 3、html模板引擎`pug`(原jade)
@@ -74,10 +76,10 @@ gulp pug --app
 #### 4、css样式编译
 
 ```bash
-<!-- 开发模式 -->
+# 开发模式
 gulp sass --app
 
-<!-- 生产模式 -->
+# 生产模式
 gulp sass:build --app
 ```
 
@@ -105,6 +107,8 @@ gulp zip --app
 
 不要将所有任务的逻辑全部放到gulp入口文件中，那样的话，随着项目变得复杂，gulp入口文件将变得无法维护
 
+_gulpfile.babel.js_
+
 ```javascript
 'use strict';
 import requireDir from 'require-dir';
@@ -115,28 +119,20 @@ requireDir('./gulp/tasks', { recurse: true });
 
 #### 2、拆分子任务
 
-将子任务拆分到单独的文件中，这样可以提高子任务的复用度，如sass任务：
+将子任务拆分到单独的文件中，这样可以提高子任务的复用度，如html任务：
+
+_gulp/tasks/sub-tasks/html.js_
 
 ```javascript
 import gulp from 'gulp';
-const $ = require('gulp-load-plugins')();
-import cleancss from 'gulp-clean-css';
+import plumber from 'gulp-plumber';
 
-const handleErrors = require('../../lib/handleErrors');
+const config = require('../../config.default.js').html;
 
-import fs from 'fs';
-const project = require('../../lib/project')();
-let config;
-if (fs.existsSync(`./gulp/config${project}.js`)) {
-    config = require(`../../config${project}`).sass;
-}
-
-gulp.task('sass', () => {
-    // 具体内容...
-});
-
-gulp.task('sass:build', () => {
-    // 具体内容...
+gulp.task('html', () => {
+  return gulp.src(`${config.src}/**/*.{html,htm}`)
+    .pipe(plumber())
+    .pipe(gulp.dest(config.dest));
 });
 ```
 
@@ -144,14 +140,11 @@ gulp.task('sass:build', () => {
 
 将项目的配置文件抽离到'gulp/config.xxx.js'中，方便统一管理、配置。
 
-```javascript
-// config.app.js
-const project = 'app';
-const src = `src/${project}`;
-const dest = `build/${project}`;
-const BS = process.platform === 'darwin' ? 'google chrome' : 'chrome';
+_gulp/config.default.js_
 
-const proxy = require('http-proxy-middleware');
+```javascript
+// ...以上省略非配置
+
 // 设置代理
 const middleware = [
   // proxy('/api', {
@@ -164,105 +157,168 @@ const middleware = [
   // })
 ];
 
-module.exports = {
-  browsersync: {
-    development: {
+// 采用lodash的merge深合并方法将用户配置合并到默认配置中
+module.exports = merge(
+  {
+    browsersync: {
       notify: false,
-      port: 8000,
-      // https: true,
+      port: 9000,
       server: {
-        baseDir: [src, dest],
-        index: 'index.html',
-        routes: {
-          // '/bower_components': 'bower_components'
-        }
+        baseDir: [src, dest, path.resolve(dest, '../')],
+        index: 'index.html'
       },
       middleware: [...middleware],
-      // proxy: 'http://172.16.13.22:812', //后端服务器地址
-      // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
       browser: [BS],
-      open: 'external' // local, external, ui, ui-external, tunnel or false
-    }
-  },
-  delete: {
-    src: [dest]
-  },
-  pug: {
-    src: [`${src}/pug/**/*.pug`, `!${src}/pug/components/**/*`, `!${src}/pug/layout/**/*`],
-    dest: dest,
-    data: `${src}/pug/data/`,
-    charset: 'utf-8'
-  },
-  sass: {
-    src: `${src}/sass/**/*.scss`,
-    dest: `${dest}/css`,
-    options: {
-      outputStyle: 'expanded' //nested expanded compact compressed
+      open: 'ui' // local, external, ui, ui-external, tunnel or false
     },
-    autoprefixer: {
-      browsers: [
-        '> 1% in CN',
-        'last 10 versions',
-        'Firefox ESR',
-        'safari 5',
-        'ie 8',
-        'ie 9',
-        'opera 12.1',
-        'ios 6',
-        'android 4'
-      ]
+    copy: {
+      pic: {
+        src: `${src}/pic/**/*`,
+        dest: `${dest}/pic/`
+      }
     },
-    base64: {
-      baseDir: `${dest}/css`,
-      extensions: ['svg', 'png', /\.jpg#datauri$/i],
-      exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
-      maxImageSize: 8 * 1024
-    }
-  },
-  imagemin: {
-    images: {
-      src: `${src}/images/**/*`,
-      dest: `${dest}/images/`
+    delete: {
+      src: [dest]
     },
-    ico: {
-      src: `${src}/*.{ico,png}`,
-      dest: `${dest}/`
+    pug: {
+      src: [
+        `${src}/pug/**/*.pug`,
+        `!${src}/pug/components/**/*`,
+        `!${src}/pug/layout/**/*`
+      ],
+      dest: dest,
+      data: `${src}/pug/data/`
+    },
+    html: {
+      src: src,
+      dest: dest
+    },
+    compass: {
+      development: {
+        src: `${src}/sass/**/*.scss`,
+        dest: `${src}/css`,
+        options: {
+          import_path: ['_source/_function'],
+          sass: `${src}/sass`,
+          css: `${src}/css`,
+          image: `${src}/images`,
+          sourcemap: true
+        },
+        autoprefixer: {
+          browsers: [
+            '> 1% in CN',
+            'last 10 versions',
+            'Firefox ESR',
+            'safari 5',
+            'ie 8',
+            'ie 9',
+            'opera 12.1',
+            'ios 6',
+            'android 4'
+          ],
+          cascade: true
+        }
+      },
+      production: {
+        src: `${src}/sass/**/*.scss`,
+        dest: `${dest}/css`,
+        options: {
+          import_path: ['_source/_function'],
+          sass: `${src}/sass`,
+          css: `${dest}/css`,
+          image: `${dest}/images`
+        },
+        autoprefixer: {
+          browsers: [
+            '> 1% in CN',
+            'last 10 versions',
+            'Firefox ESR',
+            'safari 5',
+            'ie 8',
+            'ie 9',
+            'opera 12.1',
+            'ios 6',
+            'android 4'
+          ],
+          cascade: true
+        }
+      }
+    },
+    sass: {
+      src: `${src}/sass/**/*.scss`,
+      dest: `${dest}/css`,
+      options: {
+        outputStyle: 'compact' //nested expanded compact compressed
+      },
+      autoprefixer: {
+        browsers: [
+          '> 1% in CN',
+          'last 10 versions',
+          'Firefox ESR',
+          'safari 5',
+          'ie 8',
+          'ie 9',
+          'opera 12.1',
+          'ios 6',
+          'android 4'
+        ]
+      },
+      base64: {
+        baseDir: `${dest}/css`,
+        extensions: ['svg', 'png', /\.jpg#datauri$/i],
+        exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
+        maxImageSize: 8 * 1024
+      }
+    },
+    imagemin: {
+      images: {
+        src: `${src}/images/**/*`,
+        dest: `${dest}/images/`
+      },
+      ico: {
+        src: `${src}/*.{ico,png}`,
+        dest: `${dest}/`
+      }
+    },
+    uglify: {
+      src: `${src}/js/**/*.js`,
+      dest: `${dest}/js/`
+    },
+    watch: {
+      changes: [
+        `${dest}/**/*.html`,
+        `${dest}/images/**/*`, // 如果用compass编译sass这里的dest改成src
+        `${dest}/css/**/*.css`, // 如果用compass编译sass这里的dest改成src
+        `${dest}/js/**/*`
+      ],
+      sass: `${src}/sass/**/*.scss`,
+      pug: `${src}/pug/**/*.pug`,
+      html: `${src}/**/*.html`,
+      images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
+      scripts: `${src}/js/**/*.js`
+    },
+    sprites: {
+      src: src + '/images',
+      dest: {
+        css: src + '/_source/sass/sprites/',
+        image: src + '/images/'
+      }
+    },
+    zip: {
+      src: `${dest}/**/*`,
+      filename: project,
+      dest: 'build'
     }
   },
-  uglify: {
-    src: `${src}/js/**/*.js`,
-    dest: `${dest}/js/`
-  },
-  watch: {
-    changes: [
-      `${dest}/**/*.html`,
-      `${dest}/images/**/*`,
-      `${dest}/css/**/*.css`,
-      `${dest}/js/**/*`
-    ],
-    sass: `${src}/sass/**/*.scss`,
-    pug: `${src}/pug/**/*.pug`,
-    images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
-    scripts: `${src}/js/**/*.js`
-  },
-  sprites: {
-    src: src + '/images',
-    dest: {
-      css: src + '/sass/sprites/',
-      image: src + '/images/'
-    }
-  },
-  zip: {
-    src: `${dest}/**/*`,
-    filename: project,
-    dest: 'build'
-  }
-};
+  // 用户配置
+  usrConfig || {}
+);
 ```
 
 ```javascript
 // 子任务文件，通过下列方式一如配置文件
-let config = require('../../config.xxx');
+const config = require('../../config.default.js').html;
+
 ```
 
 #### 4、抽离工具函数，放到单独的目录
@@ -293,13 +349,8 @@ const $ = require('gulp-load-plugins')();// 按需引入package.json中的依赖
 import cleancss from 'gulp-clean-css';// 上面方式无法引入的需单独引入
 const handleErrors = require('../../lib/handleErrors');// 错误处理工具函数
 
-import fs from 'fs';
-const project = require('../../lib/project')();// 解析、处理命令行配置参数
-let config;
-// 判断配置文件是否存在，存在就引入
-if (fs.existsSync(`./gulp/config${project}.js`)) {
-    config = require(`../../config${project}`).sass;
-}
+const config = require('../../config.default.js').sass;
+
 // 开发模式
 gulp.task('sass', () => {
     return gulp.src(config.src)
@@ -310,6 +361,7 @@ gulp.task('sass', () => {
         .pipe($.sourcemaps.write('./.map'))
         .pipe(gulp.dest(config.dest));
 });
+
 // 生产模式
 gulp.task('sass:build', () => {
   // 根据是否有base64配置项执行不同的任务
@@ -346,12 +398,8 @@ const project = require('../lib/project')();
 const config = require(`../config${project}`).watch;
 const reload = browserSync.reload;
 
-/**
- * Start browsersync task and then watch files for changes
- */
 // 开发模式
 gulp.task('app', (callback) => {
-  // 先依次执行`delete`、`imagemin`,然后并行执行`pug`、`sass`、`scripts`,再依次执行`browsersync`、`app:watch`
     gulpSequence(
         'delete',
         'imagemin', [
@@ -363,6 +411,8 @@ gulp.task('app', (callback) => {
         'app:watch'
     )(callback);
 });
+// 先依次执行`delete`、`imagemin`,然后并行执行`pug`、`sass`、`scripts`,再依次执行`browsersync`、`app:watch`
+
 // 实时监听任务
 gulp.task('app:watch', () => {
     gulp.watch(config.changes).on('change', reload).on('error', () => {});
@@ -372,6 +422,7 @@ gulp.task('app:watch', () => {
     gulp.watch(config.sass, ['sass'])
     gulp.watch(config.scripts, ['scripts'])
 });
+
 // 生产模式
 gulp.task('app:build', gulpSequence(
     'delete',
