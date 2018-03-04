@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { merge } from 'lodash';
 
 let rootPath = path.resolve('');
 let isRoot = fs.existsSync(path.resolve('','./gulp')) && fs.existsSync(path.resolve('','./src'));
@@ -32,14 +33,14 @@ const middleware = [
   // })
 ];
 
-module.exports = Object.assign(
+module.exports = merge(
   {
     browsersync: {
       notify: false,
       port: 9000,
       // https: true,
       server: {
-        baseDir: [src, dest],
+        baseDir: [src, dest, path.resolve(dest, '../')],
         index: 'index.html',
         routes: {
           // '/bower_components': 'bower_components'
@@ -78,7 +79,7 @@ module.exports = Object.assign(
         src: `${src}/sass/**/*.scss`,
         dest: `${src}/css`,
         options: {
-          import_path: [`_source/_function`],
+          import_path: ['_source/_function'],
           sass: `${src}/sass`,
           css: `${src}/css`,
           image: `${src}/images`,
