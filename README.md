@@ -263,7 +263,8 @@ module.exports = merge(
           'android 4'
         ]
       },
-      base64: {
+      base64: true,
+      base64Options: {
         baseDir: `${dest}/css`,
         extensions: ['svg', 'png', /\.jpg#datauri$/i],
         exclude: [/\.server\.(com|net)\/dynamic\//, '--live.jpg'],
