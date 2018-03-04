@@ -1,12 +1,7 @@
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
 
-import fs from 'fs';
-const project = require('../../lib/project')();
-let config;
-if (fs.existsSync(`./gulp/config${project}.js`)) {
-  config = require(`../../config${project}`).html;
-}
+const config = require('../../config.default.js').html;
 
 gulp.task('html', () => {
   return gulp.src(`${config.src}/**/*.{html,htm}`)

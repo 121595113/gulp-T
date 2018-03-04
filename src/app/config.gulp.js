@@ -1,6 +1,8 @@
-const project = 'app';
-const src = `src/${project}`;
-const dest = `build/${project}`;
+import path from 'path';
+const project = __dirname.split(path.sep).pop() || '';
+
+const src = path.resolve(__dirname);
+const dest = path.resolve(__dirname, `../../build/${project}`);
 const BS = process.platform === 'darwin' ? 'google chrome' : 'chrome';
 
 const proxy = require('http-proxy-middleware');
@@ -18,23 +20,21 @@ const middleware = [
 
 module.exports = {
   browsersync: {
-    development: {
-      notify: false,
-      port: 8000,
-      // https: true,
-      server: {
-        baseDir: [src, dest],
-        index: 'index.html',
-        routes: {
-          // '/bower_components': 'bower_components'
-        }
-      },
-      middleware: [...middleware],
-      // proxy: 'http://172.16.13.22:812', //后端服务器地址
-      // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
-      browser: [BS],
-      open: 'external' // local, external, ui, ui-external, tunnel or false
-    }
+    notify: false,
+    port: 8000,
+    // https: true,
+    server: {
+      baseDir: [src, dest],
+      index: 'index.html',
+      routes: {
+        // '/bower_components': 'bower_components'
+      }
+    },
+    middleware: [...middleware],
+    // proxy: 'http://172.16.13.22:812', //后端服务器地址
+    // serveStatic: [src,dest], // 本地文件目录，proxy同server不能同时配置，需改用serveStatic代替
+    browser: [BS],
+    open: 'external' // local, external, ui, ui-external, tunnel or false
   },
   delete: {
     src: [dest]

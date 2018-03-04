@@ -5,12 +5,7 @@ const $ = require('gulp-load-plugins')();
 import path from 'path';
 
 import fs from 'fs';
-const project = require('../../lib/project')();
-let config;
-if (fs.existsSync(`./gulp/config${project}.js`)) {
-  config = require(`../../config${project}`).sprites;
-}
-
+const config = require('../../config.default.js').sprites;
 const sprite_arg = require('../../lib/sprite_arg')();
 
 /**
@@ -42,7 +37,7 @@ gulp.task('sprites', () => {
         cssOpts: {
           dir_name: item
         },
-        cssTemplate: path.resolve('./gulp/lib/handlebarsInheritance.scss.handlebars'),
+        cssTemplate: path.resolve(__dirname, '../../lib/handlebarsInheritance.scss.handlebars'),
         imgName: `${item}-sprite.png`,
         imgPath: `../images/${item}-sprite.png?${timeStamp}`,
       }, retina ? {
