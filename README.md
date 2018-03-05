@@ -39,7 +39,7 @@ npm install
 
 以app项目为例
 
-#### 方式一，在gulp-T/
+#### 方式一，在gulp-T/根目录下跑指定项目
 
 ```bash
 # 开发模式
@@ -51,7 +51,9 @@ gulp app:build --app
 
 运行方式`gulp`+`任务名`(app)+`--项目名`(app)
 
-#### 方式二，首先在项目目录gulp-T/src/app/添加gulpfile.babel.js,添加以下代码
+#### 方式二，在指定项目内跑
+
+首先在项目目录gulp-T/src/app/添加gulpfile.babel.js,添加以下代码
 
 ```javascript
 'use strict';
@@ -197,7 +199,7 @@ ico: {
 
 ## 如何自定义自己的组合任务
 
-在项目目录下gulpfile.babel.js中引入以下模块
+在单独项目里的gulpfile.babel.js内引入以下模块（使用者新制定的项目内需先创建上述js文件）
 
 ```javascript
 import gulp from 'gulp';
@@ -211,6 +213,7 @@ const reload = browserSync.reload;
 然后，开始组合自己的任务，添加如下代码
 
 ```javascript
+// 开发组合任务
 gulp.task('newTask', (callback) => {
   gulpSequence(
     'delete',
@@ -224,6 +227,7 @@ gulp.task('newTask', (callback) => {
   )(callback);
 });
 
+// 监听文件变化 & 浏览器同步
 gulp.task('newTask:watch', () => {
   gulp.watch(config.changes).on('change', reload).on('error', () => {});
 
@@ -233,6 +237,7 @@ gulp.task('newTask:watch', () => {
   gulp.watch(config.scripts, ['scripts']);
 });
 
+// 生产组合任务
 gulp.task('newTask:build', gulpSequence(
   'delete',
   'imagemin', [
@@ -279,11 +284,11 @@ module.exports = {
 const proxy = require('http-proxy-middleware');
 // 设置代理
 const middleware = [
-  proxy('/api', {
+  proxy('/接口名', {
     target: 'http://localhost:8080',
     changeOrigin: true
   }),
-  proxy(['/otherServer1', '/otherServer2'], {
+  proxy(['/接口1', '/接口2'], {
     target: 'http://localhost:8080',
     changeOrigin: true
   })
@@ -354,11 +359,11 @@ gulp sprites -s 文件夹名 -L top-down --app
 
 // 3.1单个图片的引用
 div{
-  @include sprite($cur-lv2);// 参数为$文件夹名-文件名
+  @include sprite($cur-lv2); // 参数为$文件夹名-文件名
 }
 
 // 3.2一次性引入全部
-@include sprites($cur-sprites);// 参数为$文件夹名-sprites
+@include sprites($cur-sprites); // 参数为$文件夹名-sprites
 ```
 
 ```scss
@@ -399,7 +404,7 @@ div{
 
 ```scss
 div{
-  @include rem-sprite($cur-lv2);// 参数为$文件夹名-文件名
+  @include rem-sprite($cur-lv2); // 参数为$文件夹名-文件名
 }
 @include rem-sprites($cur-sprites);
 ```
@@ -408,9 +413,9 @@ rem计算基数可以自定义，默认是全局的$rem-base
 
 ```scss
 div{
-  @include rem-sprite($cur-lv2,$rem-base:720);// 带rem计算基数的,720是设计稿的尺寸
+  @include rem-sprite($cur-lv2,$rem-base:720); // 带rem计算基数的,720是设计稿的尺寸
 }
-@include rem-sprites($cur-sprites,$rem-base:720);// 带rem计算基数的,720是设计稿的尺寸
+@include rem-sprites($cur-sprites,$rem-base:720); // 带rem计算基数的,720是设计稿的尺寸
 ```
 
 ### 3、关于px转rem方式？
@@ -420,7 +425,7 @@ rem的转换时通过@function rem-calc()转换的,如下:
 ```scss
 div{
     width: rem-calc(100px);
-    height: rem-calc(100);// px单位可以省略,建议一直省略
+    height: rem-calc(100); // px单位可以省略,建议一直省略
 }
 
 // 支持多个参数
@@ -433,23 +438,23 @@ div{
 
 ```scss
 div{
-    width: rem-calc(100px,720);// 这里是根据设计稿720计算的
-    margin: rem-calc(10 20 auto 40,32);// 这里是根据字体大小32计算的
+    width: rem-calc(100px,720); // 这里是根据设计稿720计算的
+    margin: rem-calc(10 20 auto 40,32); // 这里是根据字体大小32计算的
 }
 ```
 
 还可以设置全局rem计算基数和计算比值,如：
 
 ```scss
-$rem-base: 750; // 设计稿宽度
-$Response_rate: 100 / 750; // 理解,在750设计稿上，1rem = 100px
+$rem-base: 750; // 可设置为设计稿宽度或字体大小(见下文)
+$Response_rate: 100 / 750; // 可理解为：在750设计稿上， 100px = 1rem
 ```
 
 默认值：
 
 ```scss
-$rem-base: 16px !default; // 默认值16px，是以字体大小设置的
-$Response_rate: 12 / 320 !default; // 理解，在320的设计稿上，1rem = 12px
+$rem-base: 16px !default; // 默认值16px，以字体大小设置
+$Response_rate: 12 / 320 !default; // 可理解为：在320的设计稿上，12px = 1rem
 ```
 
 ### 4、关于移动适配的实现？
@@ -464,5 +469,5 @@ $Response:true; // 设为true即为开启了响应式
 
 ```scss
 $Response:true;
-$mediaArrays:(320 375 480 640 720);// 自定义适配手机尺寸
+$mediaArrays:(320 375 480 640 720); // 自定义适配手机尺寸
 ```
