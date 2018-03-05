@@ -14,8 +14,8 @@ const sprite_arg = require('../../lib/sprite_arg')();
 
 gulp.task('sprites', () => {
   const imgStreams = {};
-  const dirNames = sprite_arg['dir_names'];
-  dirNames && dirNames.forEach((item, index) => {
+  const dirNames = sprite_arg.dir_names;
+  dirNames && dirNames.forEach((item) => {
     const files = fs.readdirSync(`${config.src}/${item}`);
     let retina = null;
     let timeStamp = new Date().valueOf();
