@@ -60,7 +60,7 @@ gulp sprites -s 文件夹名 -L top-down --app
 #### 2、清理
 
 ```bash
-gulp clean --app
+gulp delete --app
 ```
 
 #### 3、html模板引擎`pug`(原jade)
