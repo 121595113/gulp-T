@@ -3,13 +3,7 @@ const $ = require('gulp-load-plugins')();
 // import plumber from 'gulp-plumber';
 // import imagemin from 'gulp-imagemin';
 let merge = require('merge-stream')();
-
-import fs from 'fs';
-const project = require('../../lib/project')();
-let config;
-if (fs.existsSync(`./gulp/config${project}.js`)) {
-  config = require(`../../config${project}`).imagemin;
-}
+const config = require('../../config.default.js').imagemin;
 
 gulp.task('imagemin', () => {
   let images = {};

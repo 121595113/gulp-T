@@ -8,12 +8,7 @@ import cleancss from 'gulp-clean-css';
 // import base64 from 'gulp-base64';
 const handleErrors = require('../../lib/handleErrors');
 
-import fs from 'fs';
-const project = require('../../lib/project')();
-let config;
-if (fs.existsSync(`./gulp/config${project}.js`)) {
-  config = require(`../../config${project}`).sass;
-}
+const config = require('../../config.default.js').sass;
 
 gulp.task('sass', () => {
   return gulp.src(config.src)
@@ -36,7 +31,7 @@ gulp.task('sass:build', () => {
 
   if (!!config.base64) {
     sassBuild$ = sassBuild$
-      .pipe($.base64(config.base64))
+      .pipe($.base64(config.base64Options))
       .pipe(cleancss({
         compatibility: 'ie8'
       }));

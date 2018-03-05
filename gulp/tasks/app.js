@@ -2,8 +2,7 @@ import gulp from 'gulp';
 import browserSync from 'browser-sync';
 import gulpSequence from 'gulp-sequence';
 
-const project = require('../lib/project')();
-const config = require(`../config${project}`).watch;
+const config = require('../config.default.js').watch;
 const reload = browserSync.reload;
 
 /**

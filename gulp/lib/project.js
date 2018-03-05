@@ -1,8 +1,8 @@
 module.exports = function() {
-  let args = '';
+  let _arg = '';
   process.argv.slice(2).forEach(function(item, index) {
     let arg = (arg = item.match(/^-{2}(.*)$/)) && arg[1];
-    args = arg ? `.${arg}` : args;
+    _arg = arg || _arg;
   });
-  return args;
+  return _arg;
 };
