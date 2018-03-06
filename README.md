@@ -126,11 +126,11 @@ gulp app:build
     将打包后的文件压缩成`.zip`文件，方便文件的传输
 
 - 组合任务
-  - app[:build]
+  - `app[:build]`
 
     执行一组任务，app分别执行了`delete`, `imagemin`, `pug`, `sass`, `scripts`, `browsersync`, `app:watch`；app:build分别执行了`delete`, `imagemin`, `pug`, `sass:build`, `scripts:build`
 
-  - pc[:build]
+  - `pc[:build]`
 
     执行一组任务，pc分别执行了`delete`, `imagemin`, `html`, `sass`, `scripts`, `browsersync`, `app:watch`；pc:build分别执行了`delete`, `imagemin`, `html`, `sass:build`, `scripts:build`
 
