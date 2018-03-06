@@ -227,7 +227,7 @@ gulp.task('newTask', (callback) => {
   )(callback);
 });
 
-// 监听文件变化 & 浏览器同步
+// 监听文件变化 & 浏览器同步
 gulp.task('newTask:watch', () => {
   gulp.watch(config.changes).on('change', reload).on('error', () => {});
 
@@ -447,7 +447,7 @@ div{
 
 ```scss
 $rem-base: 750; // 可设置为设计稿宽度或字体大小(见下文)
-$Response_rate: 100 / 750; // 可理解为：在750设计稿上， 100px = 1rem
+$Response_rate: 100 / 750; // 可理解为：在750设计稿上， 100px = 1rem
 ```
 
 默认值：
