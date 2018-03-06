@@ -81,20 +81,60 @@ gulp app:build
 ## 内置任务
 
 - 子任务
-  - browsersync
-  - compass[:build]
-  - copy
-  - delete
-  - html
-  - imagemin
-  - pug
-  - sass[:build]
-  - script[:build]
-  - sprites
-  - zip
+  - `browsersync`
+
+    启一个本地服务，并监听本地文件变化同步更新到浏览器
+
+  - `compass[:build]`
+
+    使用compass编译scss
+
+  - `copy`
+
+    用于拷贝src下的文件到dest指定目录下
+
+  - `delete`
+
+    删除之前打包好的项目文件
+
+  - `html`
+
+    将src下的`.html`文件拷贝到dest指定的目录下
+
+  - `imagemin`
+
+    用于压缩图片
+
+  - `pug`
+
+    处理`.pug`相关的文件。pug原名jade，是html预处理文件
+
+  - `sass[:build]`
+
+    将scss编译成css
+
+  - `script[:build]`
+
+    编译、压缩`.js`文件，支持es6语法
+
+  - `sprites`
+
+    精灵合图，也叫雪碧图。将零散的图片合成到一张图片上，以减少资源请求数
+
+  - `zip`
+
+    将打包后的文件压缩成`.zip`文件，方便文件的传输
+
 - 组合任务
   - app[:build]
+
+    执行一组任务，app分别执行了`delete`, `imagemin`, `pug`, `sass`, `scripts`, `browsersync`, `app:watch`；app:build分别执行了`delete`, `imagemin`, `pug`, `sass:build`, `scripts:build`
+
   - pc[:build]
+
+    执行一组任务，pc分别执行了`delete`, `imagemin`, `html`, `sass`, `scripts`, `browsersync`, `app:watch`；pc:build分别执行了`delete`, `imagemin`, `html`, `sass:build`, `scripts:build`
+
+以上任务带[:build]表示开发和生产模式两种任务，如compass[:build]表示有compass和compass:build两种任务
 
 ## Options
 
@@ -102,23 +142,53 @@ gulp app:build
 
 ### browsersync
 
-- notify
-- port
-- server
-- middleware
-- browser
-- open
+> browsersync任务配置
+
+- `notify` ：Boolean类型，表是否在浏览器中显示通知，默认false
+- `port` ：String类型，监听端口
+- `server`
+  - `baseDir`：String[]类型, 服务器根目录
+  - `index`：String类型，浏览器默认打开文件名
+  - `routes`：Object类型，默认{}
+- `middleware`：proxy[]类型，设置代理
+- `browser`：String[]类型，打开浏览器列表
+- `open`：String类型，项目在浏览器打开方式。可选值local, external, ui, ui-external, tunnel or false
 
 ### compass
 
-- development
-- production
+> comapss任务配置
+
+- `development`
+  - `src`：glob类型路径，scss源码在系统中的路径
+  - `dest`：编译后文件系统路径
+  - `options`
+    - `import_path`
+    - `sass`
+    - `css`
+    - `image`
+    - `sourcemap`：Boolean类型，是否生成调试文件.map，默认true
+  - `autoprefixer`
+    - `browsers`：Array类型，为css满足条件的浏览器厂商前缀
+    - `cascade`
+- `production`
+  - `src`：glob类型路径，scss源码在系统中的路径
+  - `dest`：编译后文件系统路径
+  - `options`
+    - `import_path`
+    - `sass`
+    - `css`
+    - `image`
+  - `autoprefixer`
+    - `browsers`
+    - `cascade`
 
 ### copy
 
-- key,名字随便取
-  - src
-  - dest
+> copy任务配置
+
+- `key`,名字随便取，主要便于识别，利于后期维护
+  - `src`：glob类型路径，要拷贝文件在系统中的路径
+  - `dest`：拷贝到的系统路径
 
 对象序列，如
 
@@ -131,18 +201,24 @@ pic: {
 
 ### delete
 
-- src
+> delete任务配置
+
+- `src`：glob[]类型路径，要删除的文件
 
 ### html
 
-- src
-- dest
+> html任务配置
+
+- `src`源目录
+- `dest`目标目录
 
 ### imagemin
 
-- key,名字随便取
-  - src
-  - dest
+> imagemin任务配置
+
+- `key`,名字随便取
+  - `src`
+  - `dest`
 
 对象序列，如
 
@@ -159,43 +235,56 @@ ico: {
 
 ### pug
 
-- src
-- dest
-- data
+> pug任务配置
+
+- `src`源目录
+- `dest`目标目录
+- `data`数据目录
 
 ### sass
 
-- src
-- dest
-- options
-- autoprefixer
-- base64
+> sass任务配置
+
+- `src`源目录
+- `dest`目标目录
+- `options`
+  - `outputStyle`压缩方式，可选nested、 expanded、 compact、 compressed
+- `autoprefixer`同compass
+- `base64`：Boolean类型，是否将满足条件的图片转成base64。默认true
 
 ### uglify
 
-- src
-- dest
+> script任务配置
+
+- `src`源目录
+- `dest`目标目录
 
 ### sprites
 
-- src
-- dest
+> sprites任务配置
+
+- `src`源目录
+- `dest`目标目录
 
 ### zip
 
-- src
-- filename
-- dest
+> zip任务配置
+
+- `src`源目录
+- `filename`打压缩包后的名字
+- `dest`目标目录
 
 ### watch
 
-- change
-- sass
-- pug
-- html
-- images
-- scripts
-- ...
+> 要监听文件列表和要监听的任务
+
+- `change`：glob[],要监听文件数组列表
+- `sass`：要监听的任务
+- `pug`：要监听的任务
+- `html`：要监听的任务
+- `images`：要监听的任务
+- `scripts`：要监听的任务
+- `...`：要监听的任务
 
 ## 如何自定义自己的组合任务
 
