@@ -288,15 +288,19 @@ ico: {
 
 ## 如何自定义自己的组合任务
 
-在单独项目里的gulpfile.babel.js内引入以下模块（使用者新制定的项目内需先创建上述js文件）
+在单独项目里的gulpfile.babel.js内添加下面注释部分的代码，并恢复注释（使用者新制定的项目内需先创建上述js文件）
 
 ```javascript
-import gulp from 'gulp';
-import browserSync from 'browser-sync';
-import gulpSequence from 'gulp-sequence';
+'use strict';
+import requireDir from 'require-dir';
+// import gulp from 'gulp';
+// import browserSync from 'browser-sync';
+// import gulpSequence from 'gulp-sequence';
 
-const config = require('../../gulp/config.default.js').watch;
-const reload = browserSync.reload;
+requireDir('../../gulp/tasks', { recurse: true });
+
+// const config = require('../../gulp/config.default.js').watch;
+// const reload = browserSync.reload;
 ```
 
 然后，开始组合自己的任务，添加如下代码
@@ -356,10 +360,11 @@ gulp newTask:build
 
 ```javascript
 import path from 'path';
-const project = __dirname.split(path.sep).pop() || '';
 
+const rootOfGulp = process.argv.rootOfGulp;
 const src = path.resolve(__dirname);
-const dest = path.resolve(__dirname, `../../build/${project}`);
+const projectName = path.relative(rootOfGulp, src).replace('src/','');
+const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
 
 module.exports = {
   // 配置项写在这里

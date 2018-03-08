@@ -1,8 +1,9 @@
 import path from 'path';
-const project = __dirname.split(path.sep).pop() || '';
 
+const rootOfGulp = process.argv.rootOfGulp;
 const src = path.resolve(__dirname);
-const dest = path.resolve(__dirname, `../../build/${project}`);
+const projectName = path.relative(rootOfGulp, src).replace('src/','');
+const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
 
 const proxy = require('http-proxy-middleware');
 // 设置代理

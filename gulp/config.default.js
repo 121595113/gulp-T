@@ -2,20 +2,21 @@ import path from 'path';
 import fs from 'fs';
 import { merge } from 'lodash';
 
-let rootPath = path.resolve('');
-let isRoot = fs.existsSync(path.resolve('','./gulp')) && fs.existsSync(path.resolve('','./src'));
+let rootOfProject = path.resolve('');
+let rootOfGulp = path.resolve(__dirname, '../');
+process.argv.rootOfGulp = rootOfGulp;
+let projectName = path.relative(rootOfGulp, rootOfProject).replace('src/', '');
+let isRoot = projectName === '';
 if (isRoot) {
-  const projectName = require('./lib/project');
-  rootPath = path.resolve('', `./src/${projectName()}`);
+  projectName = require('./lib/project')();
 }
 
-const project = path.resolve(rootPath).split(path.sep).pop() || '';
-const src = path.resolve(rootPath, `../${project}`);
-const dest = path.resolve(rootPath, `../../build/${project}`);
+const src = path.resolve(rootOfGulp, `./src/${projectName}`);
+const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
 const BS = process.platform === 'darwin' ? 'google chrome' : 'chrome';
 
-const usrConfigFile = path.resolve(rootPath, './config.gulp.js');
-let usrConfig;
+const usrConfigFile = path.resolve(src, './config.gulp.js');
+let usrConfig = {};
 if (fs.existsSync(usrConfigFile)) {
   usrConfig = require(usrConfigFile);
 }
@@ -188,9 +189,9 @@ module.exports = merge(
     },
     zip: {
       src: `${dest}/**/*`,
-      filename: project,
-      dest: 'build'
+      filename: projectName.split('/').pop(),
+      dest: path.resolve(dest, '../')
     }
   },
-  usrConfig || {}
+  usrConfig
 );
