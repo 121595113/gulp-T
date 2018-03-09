@@ -27,6 +27,7 @@ gulp.task('pc:watch', () => {
 
   gulp.watch(config.images, ['imagemin']);
   gulp.watch(config.html, ['html']);
+  gulp.watch(config.htm, ['html']);
   gulp.watch(config.sass, ['sass']);
   gulp.watch(config.scripts, ['scripts']);
 });

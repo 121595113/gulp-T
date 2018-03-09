@@ -169,7 +169,7 @@ module.exports = merge(
     },
     watch: {
       changes: [
-        `${dest}/**/*.html`,
+        `${dest}/**/*.{html, htm}`,
         `${dest}/images/**/*`, // 如果用compass编译sass这里的dest改成src
         `${dest}/css/**/*.css`, // 如果用compass编译sass这里的dest改成src
         `${dest}/js/**/*`
@@ -177,6 +177,7 @@ module.exports = merge(
       sass: `${src}/sass/**/*.scss`,
       pug: `${src}/pug/**/*.pug`,
       html: `${src}/**/*.html`,
+      htm: `${src}/**/*.htm`,
       images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
       scripts: `${src}/js/**/*.js`
     },
