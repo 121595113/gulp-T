@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
 import gulpSequence from 'gulp-sequence';
+import { debounce } from 'lodash';
 
 const config = require('../config.default.js').watch;
 const reload = browserSync.reload;
@@ -23,11 +24,10 @@ gulp.task('pc', (callback) => {
 });
 
 gulp.task('pc:watch', () => {
-  gulp.watch(config.changes).on('change', reload).on('error', () => {});
+  gulp.watch(config.changes).on('change', debounce(reload, 500)).on('error', () => {});
 
   gulp.watch(config.images, ['imagemin']);
   gulp.watch(config.html, ['html']);
-  gulp.watch(config.htm, ['html']);
   gulp.watch(config.sass, ['sass']);
   gulp.watch(config.scripts, ['scripts']);
 });
