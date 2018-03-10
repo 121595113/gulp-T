@@ -4,12 +4,13 @@ import { merge } from 'lodash';
 
 let rootOfProject = path.resolve('');
 let rootOfGulp = path.resolve(__dirname, '../');
-process.argv.rootOfGulp = rootOfGulp;
 let projectName = path.relative(rootOfGulp, rootOfProject).replace('src/', '');
 let isRoot = projectName === '';
 if (isRoot) {
   projectName = require('./lib/project')();
 }
+process.argv.rootOfGulp = rootOfGulp;
+process.argv.projectName = projectName;
 
 const src = path.resolve(rootOfGulp, `./src/${projectName}`);
 const dest = path.resolve(rootOfGulp, `./build/${projectName}`);

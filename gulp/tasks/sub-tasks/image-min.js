@@ -5,7 +5,16 @@ const $ = require('gulp-load-plugins')();
 let merge = require('merge-stream')();
 const config = require('../../config.default.js').imagemin;
 
-gulp.task('imagemin', () => {
+const exec = require('child_process').exec;
+
+gulp.task('imagemin', cb => {
+  exec(`gulp _imagemin --${process.argv.projectName}`, function(err) {
+    if (err) return cb(err);
+    cb();
+  });
+});
+
+gulp.task('_imagemin', () => {
   let images = {};
   for (let i in config) {
     images[i] = gulp.src(config[i].src)
