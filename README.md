@@ -288,12 +288,7 @@ ico: {
 > 要监听文件列表和要监听的任务
 
 - `change`：glob[],要监听文件数组列表
-- `sass`：sass任务对应的监听路径
-- `pug`：pug任务对应的监听路径
-- `html`：html任务对应的监听路径
-- `imagemin`：imagemin任务对应的监听路径
-- `scripts`：scripts任务对应的监听路径
-- `...`：...任务对应的监听路径
+- `tasks`：String[],要监听的任务数组。默认值['sass', 'pug', 'html', 'imagemin', 'scripts']
 
 ## 如何自定义自己的组合任务
 

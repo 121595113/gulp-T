@@ -175,13 +175,13 @@ module.exports = merge(
         `${dest}/css/**/*.css`, // 如果用compass编译sass这里的dest改成src
         `${dest}/js/**/*`
       ],
-      sass: `${src}/sass/**/*.scss`,
-      pug: `${src}/pug/**/*.pug`,
-      html: [`${src}/**/*.html`, `${src}/**/*.htm`],
-      imagemin: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
-      scripts: {
-        name: 'scripts',
-        src: `${src}/js/**/*.js`
+      tasks: ['sass', 'pug', 'html', 'imagemin', 'scripts'],
+      _tasks: {
+        sass: `${src}/sass/**/*.scss`,
+        pug: `${src}/pug/**/*.pug`,
+        html: [`${src}/**/*.html`, `${src}/**/*.htm`],
+        imagemin: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
+        scripts: `${src}/js/**/*.js`
       }
     },
     sprites: {

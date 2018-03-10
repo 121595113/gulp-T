@@ -5,18 +5,15 @@ import watch from 'gulp-watch';
 const config = require('../../config.default.js').watch;
 
 gulp.task('watch', () => {
-  delete config.changes;
-  for (const key in config) {
-    if (key !== 'imagemin'){
-      if(typeof config[key] === 'object'){
-        gulp.watch(config[key].src, [config[key].name]);
-      } else {
-        gulp.watch(config[key], [key]);
-      }
+  let { tasks, _tasks } = config;
+  for (const task of tasks) {
+    if (!_tasks[task]) continue;
+    if(task !== 'imagemin'){
+      gulp.watch(_tasks[task], [task]);
       continue;
     }
-    watch(config[key], () => {
-      gulpSequence(key)();
+    watch(_tasks[task], () => {
+      gulpSequence(task)();
     });
   }
 });
