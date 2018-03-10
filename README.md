@@ -6,7 +6,7 @@
 
 ## 版本特性
 
-- 零配置，也可以根据实际项目需要自定制配置
+- 默认零配置，也可以根据实际项目需要自定制配置
 - 操作简单，对新手友好
 - 扩展性更强
 - 内置精灵合图功能
@@ -137,11 +137,11 @@ gulp app:build
 - 组合任务
   - `app[:build]`
 
-    执行一组任务，app分别执行了`delete`, `imagemin`, `pug`, `sass`, `scripts`, `browsersync`, `app:watch`；app:build分别执行了`delete`, `imagemin`, `pug`, `sass:build`, `scripts:build`
+    执行一组任务，app分别执行了`delete`, `imagemin`, `pug`, `sass`, `scripts`, `dev-server`；app:build分别执行了`delete`, `imagemin`, `pug`, `sass:build`, `scripts:build`
 
   - `pc[:build]`
 
-    执行一组任务，pc分别执行了`delete`, `imagemin`, `html`, `sass`, `scripts`, `browsersync`, `app:watch`；pc:build分别执行了`delete`, `imagemin`, `html`, `sass:build`, `scripts:build`
+    执行一组任务，pc分别执行了`delete`, `imagemin`, `html`, `sass`, `scripts`, `dev-server`；pc:build分别执行了`delete`, `imagemin`, `html`, `sass:build`, `scripts:build`
 
 以上任务带[:build]表示开发和生产模式两种任务，如compass[:build]表示有compass和compass:build两种任务
 
@@ -288,12 +288,12 @@ ico: {
 > 要监听文件列表和要监听的任务
 
 - `change`：glob[],要监听文件数组列表
-- `sass`：要监听的任务
-- `pug`：要监听的任务
-- `html`：要监听的任务
-- `images`：要监听的任务
-- `scripts`：要监听的任务
-- `...`：要监听的任务
+- `sass`：sass任务对应的监听路径
+- `pug`：pug任务对应的监听路径
+- `html`：html任务对应的监听路径
+- `imagemin`：imagemin任务对应的监听路径
+- `scripts`：scripts任务对应的监听路径
+- `...`：...任务对应的监听路径
 
 ## 如何自定义自己的组合任务
 
@@ -348,7 +348,7 @@ gulp newTask:build
 
 ### 如果想自定义通用的组合任务可以参考gulp-T/gulp/tasks/下app.js和pc.js创建自己的xx.js
 
-## 如何修改默认的Options
+## 如何修改默认的配置（Options）
 
 在项目下创建config.gulp.js,添加如下通用代码
 
