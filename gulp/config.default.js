@@ -178,7 +178,7 @@ module.exports = merge(
       sass: `${src}/sass/**/*.scss`,
       pug: `${src}/pug/**/*.pug`,
       html: [`${src}/**/*.html`, `${src}/**/*.htm`],
-      images: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
+      imagemin: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
       scripts: `${src}/js/**/*.js`
     },
     sprites: {

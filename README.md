@@ -294,13 +294,9 @@ ico: {
 'use strict';
 import requireDir from 'require-dir';
 // import gulp from 'gulp';
-// import browserSync from 'browser-sync';
 // import gulpSequence from 'gulp-sequence';
 
 requireDir('../../gulp/tasks', { recurse: true });
-
-// const config = require('../../gulp/config.default.js').watch;
-// const reload = browserSync.reload;
 ```
 
 然后，开始组合自己的任务，添加如下代码
@@ -316,18 +312,8 @@ gulp.task('newTask', (callback) => {
       'scripts'
     ],
     'browsersync',
-    'newTask:watch'
+    'watch'
   )(callback);
-});
-
-// 监听文件变化 & 浏览器同步
-gulp.task('newTask:watch', () => {
-  gulp.watch(config.changes).on('change', reload).on('error', () => {});
-
-  gulp.watch(config.images, ['imagemin']);
-  gulp.watch(config.html, ['html']);
-  gulp.watch(config.sass, ['sass']);
-  gulp.watch(config.scripts, ['scripts']);
 });
 
 // 生产组合任务
