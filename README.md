@@ -559,3 +559,17 @@ $Response:true; // 设为true即为开启了响应式
 $Response:true;
 $mediaArrays:(320 375 480 640 720); // 自定义适配手机尺寸
 ```
+
+## 常见问答
+
+### 1、问：如何启动一个本地服务
+
+> 答：在子项目中执行`gulp browsersync`，或者在根项目中执行`gulp browsersync --<子项目名>`。
+
+### 2、问：如何启动监听文件变化
+
+> 答：在子项目中执行`gulp watch`，或者在项目中执行`gulp watch --<子项目名>`
+
+### 3、问：如何启动一个本地服务并监听文件变化
+
+> 答：在子项目中执行`gulp dev-server`，或者在项目中执行`gulp dev-server --<子项目名>`

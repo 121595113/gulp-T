@@ -179,7 +179,10 @@ module.exports = merge(
       pug: `${src}/pug/**/*.pug`,
       html: [`${src}/**/*.html`, `${src}/**/*.htm`],
       imagemin: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
-      scripts: `${src}/js/**/*.js`
+      scripts: {
+        name: 'scripts',
+        src: `${src}/js/**/*.js`
+      }
     },
     sprites: {
       src: src + '/images',

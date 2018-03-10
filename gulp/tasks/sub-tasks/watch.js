@@ -8,7 +8,11 @@ gulp.task('watch', () => {
   delete config.changes;
   for (const key in config) {
     if (key !== 'imagemin'){
-      gulp.watch(config[key], [key]);
+      if(typeof config[key] === 'object'){
+        gulp.watch(config[key].src, [config[key].name]);
+      } else {
+        gulp.watch(config[key], [key]);
+      }
       continue;
     }
     watch(config[key], () => {
