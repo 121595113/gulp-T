@@ -42,7 +42,7 @@ module.exports = merge(
       port: 9000,
       // https: true,
       server: {
-        baseDir: [src, dest, path.resolve(dest, '../')],
+        baseDir: [src, dest, path.resolve(rootOfGulp, './build')],
         index: 'index.html',
         routes: {
           // '/bower_components': 'bower_components'
