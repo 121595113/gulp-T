@@ -12,8 +12,7 @@ gulp.task('app', (callback) => {
       'sass',
       'scripts'
     ],
-    'browsersync',
-    'watch'
+    'dev-server'
   )(callback);
 });
 

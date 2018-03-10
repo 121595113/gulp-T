@@ -2,7 +2,7 @@
 
 ## 版本
 
-当前版本V1.0.0，向下兼容。旧版传送[V0.6.0](https://github.com/121595113/gulp-T/tree/V0.6.0)
+当前版本V1.1.0，向下兼容。旧版传送[V0.6.0](https://github.com/121595113/gulp-T/tree/V0.6.0)
 
 ## 版本特性
 
@@ -10,6 +10,7 @@
 - 操作简单，对新手友好
 - 扩展性更强
 - 内置精灵合图功能
+- 内置可在本地开启小型服务器功能
 - 内置许多scss工具方法，比如px转rem的rem-calc()方法；响应式css的解决方案；通用reset配置
 
 ## 项目初心
@@ -83,7 +84,7 @@ gulp app:build
 - 子任务
   - `browsersync`
 
-    启一个本地服务，并监听本地文件变化同步更新到浏览器
+    启一个本地服务并打开指定浏览器（可用来预览项目）
 
   - `compass[:build]`
 
@@ -96,6 +97,10 @@ gulp app:build
   - `delete`
 
     删除之前打包好的项目文件
+
+  - `dev-server`
+
+    启一个本地服务并打开指定浏览器，然后监听本地文件变化并同步刷新浏览器
 
   - `html`
 
@@ -120,6 +125,10 @@ gulp app:build
   - `sprites`
 
     精灵合图，也叫雪碧图。将零散的图片合成到一张图片上，以减少资源请求数
+
+  - `watch`
+
+    监听文件变化，执行相应的任务（用于开发时不需要刷新浏览器的任务）
 
   - `zip`
 
@@ -311,8 +320,7 @@ gulp.task('newTask', (callback) => {
       'sass',
       'scripts'
     ],
-    'browsersync',
-    'watch'
+    'dev-server'
   )(callback);
 });
 
