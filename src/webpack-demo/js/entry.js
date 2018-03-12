@@ -1,5 +1,5 @@
 require('./_a');
-// require('../css/test.css');
+require('../css/test.css');
 // require('../css/test-scss.scss');
 let a = 'bbbbbbb';
 console.log(a);

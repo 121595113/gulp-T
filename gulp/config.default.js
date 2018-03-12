@@ -3,7 +3,7 @@ import fs from 'fs';
 
 let rootOfProject = path.resolve('');
 let rootOfGulp = path.resolve(__dirname, '../');
-let projectName = path.relative(rootOfGulp, rootOfProject).replace('src/', '');
+let projectName = path.relative(rootOfGulp, rootOfProject).replace(/src(\/|\\)/, '');
 let isRoot = projectName === '';
 if (isRoot) {
   projectName = require('./lib/project')();
@@ -40,7 +40,7 @@ let configs = {
     port: 9000,
     // https: true,
     server: {
-      baseDir: [src, dest, path.resolve(rootOfGulp, './build')],
+      baseDir: [dest, src, path.resolve(rootOfGulp, './build')],
       index: 'index.html',
       routes: {
         // '/bower_components': 'bower_components'
