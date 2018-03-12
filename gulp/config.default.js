@@ -237,7 +237,7 @@ let configs = {
   }
 };
 for (const key in usrConfig) {
-  if (typeof configs[key] === 'object') {
+  if (typeof configs[key] === 'object' && typeof usrConfig[key] === 'object') {
     Object.assign(configs[key], usrConfig[key]);
     continue;
   }
