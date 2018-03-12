@@ -2,15 +2,16 @@
 
 ## 版本
 
-当前版本V1.1.0，向下兼容。旧版传送[V0.6.0](https://github.com/121595113/gulp-T/tree/V0.6.0)
+当前版本V1.2.0，向下兼容。旧版传送[V0.6.0](https://github.com/121595113/gulp-T/tree/V0.6.0)
 
 ## 版本特性
 
 - 默认零配置，也可以根据实际项目需要自定制配置
 - 操作简单，对新手友好
 - 扩展性更强
+- 支持js模块化开发
 - 内置精灵合图功能
-- 内置可在本地开启小型服务器功能
+- 内置可在本地开启小型静态资源服务器功能
 - 内置许多scss工具方法，比如px转rem的rem-calc()方法；响应式css的解决方案；通用reset配置
 
 ## 项目初心
@@ -96,11 +97,11 @@ gulp app:build
 
   - `delete`
 
-    删除之前打包好的项目文件
+    删除之前打包好的项目文件
 
   - `dev-server`
 
-    启一个本地服务并打开指定浏览器，然后监听本地文件变化并同步刷新浏览器
+    启一个本地服务并打开指定浏览器，然后监听本地文件变化并同步刷新浏览器
 
   - `html`
 
@@ -112,32 +113,36 @@ gulp app:build
 
   - `pug`
 
-    处理`.pug`相关的文件。pug原名jade，是html预处理文件
+    处理`.pug`相关的文件。pug原名jade，是html预处理文件
 
   - `sass[:build]`
 
     将scss编译成css
 
-  - `script[:build]`
+  - `scripts[:build]`
 
-    编译、压缩`.js`文件，支持es6语法
+    编译、压缩`.js`文件，支持es6语法
+
+  - `scripts2[:build]`
+
+    采用webpack编译、压缩`.js`文件，支持es6语法，支持js的模块化开发。需要注意的是模块文件命名请用`_`下划线开头
 
   - `sprites`
 
-    精灵合图，也叫雪碧图。将零散的图片合成到一张图片上，以减少资源请求数
+    精灵合图，也叫雪碧图。将零散的图片合成到一张图片上，以减少资源请求数
 
   - `watch`
 
-    监听文件变化，执行相应的任务（用于开发时不需要刷新浏览器的任务）
+    监听文件变化，执行相应的任务（用于开发时不需要刷新浏览器的任务）
 
   - `zip`
 
-    将打包后的文件压缩成`.zip`文件，方便文件的传输
+    将打包后的文件压缩成`.zip`文件，方便文件的传输
 
 - 组合任务
   - `app[:build]`
 
-    执行一组任务，app分别执行了`delete`, `imagemin`, `pug`, `sass`, `scripts`, `dev-server`；app:build分别执行了`delete`, `imagemin`, `pug`, `sass:build`, `scripts:build`
+    执行一组任务，app分别执行了`delete`, `imagemin`, `pug`, `sass`, `scripts`, `dev-server`；app:build分别执行了`delete`, `imagemin`, `pug`, `sass:build`, `scripts:build`
 
   - `pc[:build]`
 
@@ -156,7 +161,7 @@ gulp app:build
 - `notify` ：Boolean类型，表是否在浏览器中显示通知，默认false
 - `port` ：String类型，监听端口
 - `server`
-  - `baseDir`：String[]类型, 服务器根目录
+  - `baseDir`：String[]类型, 静态资源根目录
   - `index`：String类型，浏览器默认打开文件名
   - `routes`：Object类型，默认{}
 - `middleware`：proxy[]类型，设置代理
@@ -216,7 +221,7 @@ pic: {
 
 ### html
 
-> html任务配置
+> html任务配置
 
 - `src`源目录
 - `dest`目标目录
@@ -246,7 +251,7 @@ ico: {
 
 > pug任务配置
 
-- `src`源目录
+- `src`源目录
 - `dest`目标目录
 - `data`数据目录
 
@@ -263,10 +268,21 @@ ico: {
 
 ### uglify
 
-> script任务配置
+> scripts任务配置
 
 - `src`源目录
 - `dest`目标目录
+
+### webpack
+
+> scripts2任务配置,内部采用webpack编译js
+
+- `src`源目录
+- `dest`目标目录
+- `options` Object类型，webpack配置对象。可配置以下两个属性
+  - `devtool` String类型
+  - `module` Object类型，可配置以下属性
+    - `rules` Object[]类型，各种leader对象组成的数组
 
 ### sprites
 
@@ -557,14 +573,18 @@ $mediaArrays:(320 375 480 640 720); // 自定义适配手机尺寸
 
 ## 常见问答
 
-### 1、问：如何启动一个本地服务
+### 1、问：如何启动一个本地服务
 
-> 答：在子项目中执行`gulp browsersync`，或者在根项目中执行`gulp browsersync --<子项目名>`。
+> 答：在子项目中执行`gulp browsersync`，或者在根项目中执行`gulp browsersync --<子项目名>`。
 
-### 2、问：如何启动监听文件变化
+### 2、问：如何启动监听文件变化
 
-> 答：在子项目中执行`gulp watch`，或者在项目中执行`gulp watch --<子项目名>`
+> 答：在子项目中执行`gulp watch`，或者在项目中执行`gulp watch --<子项目名>`
 
-### 3、问：如何启动一个本地服务并监听文件变化
+### 3、问：如何启动一个本地服务并监听文件变化
 
-> 答：在子项目中执行`gulp dev-server`，或者在项目中执行`gulp dev-server --<子项目名>`
+> 答：在子项目中执行`gulp dev-server`，或者在项目中执行`gulp dev-server --<子项目名>`
+
+### 4、问：为什么要支持js模块化开发，又是怎么支持的
+
+> 答：为了模块（代码片段）复用；只要把监听任务数组中的scripts换成scripts2就可以了

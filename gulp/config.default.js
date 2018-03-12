@@ -8,8 +8,7 @@ let isRoot = projectName === '';
 if (isRoot) {
   projectName = require('./lib/project')() || '_';
 }
-process.argv.rootOfGulp = rootOfGulp;
-process.argv.projectName = projectName;
+Object.assign(process.argv, {rootOfGulp, projectName});
 
 const src = path.resolve(rootOfGulp, `./src/${projectName}`);
 const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
