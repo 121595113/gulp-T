@@ -220,7 +220,7 @@ let configs = {
       html: [`${src}/**/*.html`, `${src}/**/*.htm`],
       imagemin: `${src}/images/**/*.{jpg,jpeg,png,gif}`,
       scripts: `${src}/js/**/*.js`,
-      scripts2: `${src}/*/**/*.js`
+      scripts2: `${src}/*/**/*.{js,css,scss}`
     }
   },
   sprites: {
