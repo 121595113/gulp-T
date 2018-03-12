@@ -8,7 +8,7 @@ gulp.task('webpack', (callback) => {
   gulpSequence(
     'delete',
     'imagemin', [
-      'pug',
+      'html',
       'sass',
       'scripts2'
     ],
@@ -19,7 +19,7 @@ gulp.task('webpack', (callback) => {
 gulp.task('webpack:build', gulpSequence(
   'delete',
   'imagemin', [
-    'pug',
+    'html',
     'sass:build',
     'scripts2:build'
   ]

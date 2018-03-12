@@ -148,6 +148,10 @@ gulp app:build
 
     执行一组任务，pc分别执行了`delete`, `imagemin`, `html`, `sass`, `scripts`, `dev-server`；pc:build分别执行了`delete`, `imagemin`, `html`, `sass:build`, `scripts:build`
 
+  - `webpack[:build]`
+
+    执行一组任务，webpack分别执行了`delete`, `imagemin`, `html`, `sass`, `scripts2`, `dev-server`；webpack:build分别执行了`delete`, `imagemin`, `html`, `sass:build`, `scripts2:build`
+
 以上任务带[:build]表示开发和生产模式两种任务，如compass[:build]表示有compass和compass:build两种任务
 
 ## Options
