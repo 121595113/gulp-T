@@ -6,7 +6,7 @@ let rootOfGulp = path.resolve(__dirname, '../');
 let projectName = path.relative(rootOfGulp, rootOfProject).replace(/src(\/|\\)/, '');
 let isRoot = projectName === '';
 if (isRoot) {
-  projectName = require('./lib/project')();
+  projectName = require('./lib/project')() || '_';
 }
 process.argv.rootOfGulp = rootOfGulp;
 process.argv.projectName = projectName;
