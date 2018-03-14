@@ -3,7 +3,8 @@ $reset:false;// 是否将浏览器默认样式重置，默认为false
 $Response:false;// 是否使用自适应系统，默认为false
 $mediaArrays:(320 375 400 480 640 720);// 当$Response为true的时候设置适配的手机尺寸，默认值为320 360 375 400 480 540 640 720
 
-@import "../../../_source/_function/mobile-mixin";
+@import "mobile-mixin";
+@import "_test";
 @import "./sprites/cur";
 @import "./sprites/cur1";
 @import "./sprites/aqi-icon";

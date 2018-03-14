@@ -266,6 +266,7 @@ ico: {
 - `src`源目录
 - `dest`目标目录
 - `options`
+  - `includePaths`String[]类型,配置可以省略路径的文件
   - `outputStyle`压缩方式，可选nested、 expanded、 compact、 compressed
 - `autoprefixer`同compass
 - `base64`：Boolean类型，是否将满足条件的图片转成base64。默认true
@@ -316,11 +317,21 @@ ico: {
 
 ```javascript
 'use strict';
+import fs from 'fs';
+import path from 'path';
 import requireDir from 'require-dir';
 // import gulp from 'gulp';
 // import gulpSequence from 'gulp-sequence';
 
-requireDir('../../gulp/tasks', { recurse: true });
+let taskPath = '';
+for (const item of module.paths) {
+    if (fs.existsSync(item)) {
+        taskPath = path.resolve(item, '../gulp/tasks');
+        break;
+    }
+}
+
+requireDir(taskPath, { recurse: true });
 ```
 
 然后，开始组合自己的任务，添加如下代码
@@ -454,8 +465,8 @@ gulp sprites -s 文件夹名 -L top-down --app
 由于合图任务不是高频操作的任务，所以不建议将sprites子任务在组合任务中出现。执行合图任务后会在当前项目`'sass/sprites/'`文件夹下生成对应的配置文件。配置文件使用方法如下：
 
 ```scss
-// 1、首先引入调用所需的@mixin
-@import "../../../_source/_function/mobile-mixin";
+// 1、首先引入调用所需的内置@mixin
+@import "mobile-mixin";
 
 // 2、然后引入合图生成的配置文件，这里以'cur'为例
 @import "./sprites/cur";

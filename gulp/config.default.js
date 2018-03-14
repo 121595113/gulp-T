@@ -6,7 +6,7 @@ let rootOfGulp = path.resolve(__dirname, '../');
 let projectName = path.relative(rootOfGulp, rootOfProject).replace(/src(\/|\\)/, '');
 let isRoot = projectName === '';
 if (isRoot) {
-  projectName = require('./lib/project')() || '_';
+  projectName = require('./lib/project')() || 'T_T';
 }
 Object.assign(process.argv, {rootOfGulp, projectName});
 
@@ -128,6 +128,7 @@ let configs = {
     src: `${src}/sass/**/*.scss`,
     dest: `${dest}/css`,
     options: {
+      includePaths: [`${rootOfGulp}/_source/_function`],
       outputStyle: 'compact' //nested expanded compact compressed
     },
     autoprefixer: {
