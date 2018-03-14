@@ -2,7 +2,7 @@ import path from 'path';
 
 const rootOfGulp = process.argv.rootOfGulp;
 const src = path.resolve(__dirname);
-const projectName = path.relative(rootOfGulp, src).replace('src/','');
+const projectName = path.relative(rootOfGulp, src).replace(/src(\/|\\)/,'');
 const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
 Object.assign(process.argv, {dest});
 
