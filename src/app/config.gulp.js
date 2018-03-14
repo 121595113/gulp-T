@@ -4,6 +4,7 @@ const rootOfGulp = process.argv.rootOfGulp;
 const src = path.resolve(__dirname);
 const projectName = path.relative(rootOfGulp, src).replace('src/','');
 const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
+Object.assign(process.argv, {dest});
 
 const proxy = require('http-proxy-middleware');
 // 设置代理

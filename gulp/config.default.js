@@ -11,13 +11,14 @@ if (isRoot) {
 Object.assign(process.argv, {rootOfGulp, projectName});
 
 const src = path.resolve(rootOfGulp, `./src/${projectName}`);
-const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
+let dest = path.resolve(rootOfGulp, `./build/${projectName}`);
 const BS = process.platform === 'darwin' ? 'google chrome' : 'chrome';
 
 const usrConfigFile = path.resolve(src, './config.gulp.js');
 let usrConfig = {};
 if (fs.existsSync(usrConfigFile)) {
   usrConfig = require(usrConfigFile);
+  dest = process.argv.dest || dest;
 }
 
 const proxy = require('http-proxy-middleware');

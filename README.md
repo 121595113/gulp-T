@@ -2,7 +2,7 @@
 
 ## 版本
 
-当前版本V1.3.0，向下兼容。旧版传送[V0.6.0](https://github.com/121595113/gulp-T/tree/V0.6.0)
+当前版本V1.3.1，向下兼容。旧版传送[V0.6.0](https://github.com/121595113/gulp-T/tree/V0.6.0)
 
 ## 版本特性
 
@@ -385,6 +385,7 @@ const rootOfGulp = process.argv.rootOfGulp;
 const src = path.resolve(__dirname);
 const projectName = path.relative(rootOfGulp, src).replace('src/','');
 const dest = path.resolve(rootOfGulp, `./build/${projectName}`);
+Object.assign(process.argv, {dest});
 
 module.exports = {
   // 配置项写在这里
