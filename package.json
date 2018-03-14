@@ -1,6 +1,6 @@
 {
   "name": "gulp-t",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "gulp 综合应用",
   "main": "index.js",
   "scripts": {
