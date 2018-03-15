@@ -23,7 +23,7 @@ gulp.task('sass', () => {
 gulp.task('sass:build', () => {
   let sassBuild$ = gulp.src(config.src)
     .pipe($.plumber())
-    .pipe($.sass().on('error', handleErrors))
+    .pipe($.sass(config.options).on('error', handleErrors))
     .pipe($.autoprefixer(config.autoprefixer))
     .pipe(cleancss({
       compatibility: 'ie8'
