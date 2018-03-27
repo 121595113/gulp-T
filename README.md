@@ -408,11 +408,11 @@ module.exports = {
 const proxy = require('http-proxy-middleware');
 // 设置代理
 const middleware = [
-  proxy('/接口名', {
+  proxy('/接口片段', {
     target: 'http://localhost:8080',
     changeOrigin: true
   }),
-  proxy(['/接口1', '/接口2'], {
+  proxy(['/接口片段1', '/接口片段2'], {
     target: 'http://localhost:8080',
     changeOrigin: true
   })
