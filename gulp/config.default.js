@@ -193,16 +193,24 @@ let configs = {
             use: ['style-loader', 'css-loader', 'sass-loader']
           },
           {
-            test: /\.(png|jpg)$/,
+            test: /\.(png|jpg|gif)$/,
             use: [
               {
                 loader: 'url-loader',
                 options: {
                   limit: 8192,
-                  name: 'images/[name]-[hash:8].[ext]'
+                  name: 'images/[name].[ext]?[hash:8]'
                 }
               }
             ]
+          },
+          {
+            test: /\.html$/,
+            use: 'raw-loader'
+          },
+          {
+            test: /\.json$/,
+            loader: 'json-loader'
           }
         ]
       }
