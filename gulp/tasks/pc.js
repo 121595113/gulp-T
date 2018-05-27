@@ -7,6 +7,7 @@ import gulpSequence from 'gulp-sequence';
 gulp.task('pc', (callback) => {
   gulpSequence(
     'delete',
+    'copy',
     'imagemin', [
       'html',
       'sass',
@@ -18,9 +19,10 @@ gulp.task('pc', (callback) => {
 
 gulp.task('pc:build', gulpSequence(
   'delete',
+  'copy',
   'imagemin', [
     'html',
     'sass:build',
-    'scripts'
+    'scripts:build'
   ]
 ));

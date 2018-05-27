@@ -10,6 +10,9 @@ module.exports = {
           　　"jsx": true
      　　 }
   　　},
+    "globals": {
+      "$": true
+    },
     "rules": {
         "indent": [
             "error",
@@ -26,6 +29,7 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "no-console": [1, { allow: ["warn", "error"] }]
     }
 };
